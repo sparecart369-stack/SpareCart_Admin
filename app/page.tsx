@@ -1,65 +1,76 @@
-import Image from "next/image";
+import { activities, categoryShare, customers, orders, revenueSeries, sellers, spareParts } from "@/data/admin-data";
+import { BarChart } from "@/components/charts/bar-chart";
+import { LineChart } from "@/components/charts/line-chart";
+import { GlassCard } from "@/components/cards/glass-card";
+import { StatCard } from "@/components/cards/stat-card";
+import { PageHeader } from "@/components/layout/page-header";
+import { BoxIcon, ChartIcon, OrdersIcon, ProfitIcon, StoreIcon, UsersIcon } from "@/components/ui/icons";
+import { StatusBadge } from "@/components/ui/status-badge";
+import { formatCurrency, formatNumber } from "@/lib/utils";
 
 export default function Home() {
+  const revenue = orders.reduce((total, order) => total + order.amount, 0);
+  const profit = Math.round(revenue * 0.18);
+  const paidOrders = orders.filter((order) => order.paymentStatus === "Paid").length;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="animate-float-in space-y-6">
+      <PageHeader
+        title="Marketplace Overview"
+        description="A founder-focused control room for revenue, orders, supply, demand, and operational activity across Spare Cart."
+      />
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard label="Revenue" value={formatCurrency(revenue)} change="+18.4% from last month" icon={<ChartIcon className="h-6 w-6" />} tone="emerald" />
+        <StatCard label="Profit" value={formatCurrency(profit)} change="+12.8% margin lift" icon={<ProfitIcon className="h-6 w-6" />} tone="violet" />
+        <StatCard label="Orders" value={formatNumber(orders.length)} change={`${paidOrders} paid orders`} icon={<OrdersIcon className="h-6 w-6" />} tone="sky" />
+        <StatCard label="Customers" value={formatNumber(customers.length)} change="+9 new repeat buyers" icon={<UsersIcon className="h-6 w-6" />} tone="amber" />
+        <StatCard label="Sellers" value={formatNumber(sellers.length)} change="4 awaiting verification" icon={<StoreIcon className="h-6 w-6" />} tone="rose" />
+        <StatCard label="Products" value={formatNumber(spareParts.length)} change="86% currently in stock" icon={<BoxIcon className="h-6 w-6" />} tone="zinc" />
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
+        <GlassCard title="Revenue Momentum" subtitle="Monthly gross marketplace value">
+          <LineChart data={revenueSeries} labels={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]} />
+        </GlassCard>
+        <GlassCard title="Top Categories" subtitle="Share of sales by part category">
+          <BarChart data={categoryShare} />
+        </GlassCard>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-2">
+        <GlassCard title="Recent Orders" subtitle="Latest marketplace transactions">
+          <div className="space-y-3">
+            {orders.slice(0, 6).map((order) => (
+              <div key={order.id} className="flex items-center justify-between gap-3 rounded-2xl bg-white/70 p-3 dark:bg-white/5">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-zinc-950 dark:text-white">{order.product}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">{order.id} · {order.customer}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-black text-zinc-950 dark:text-white">{formatCurrency(order.amount)}</p>
+                  <StatusBadge status={order.paymentStatus} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+
+        <GlassCard title="Recent Activity" subtitle="Operational signals that need founder attention">
+          <div className="space-y-4">
+            {activities.map((activity) => (
+              <div key={activity.id} className="flex gap-3">
+                <span className="mt-1 h-3 w-3 shrink-0 rounded-full bg-emerald-400 shadow-lg shadow-emerald-500/40" />
+                <div>
+                  <p className="text-sm font-bold text-zinc-950 dark:text-white">{activity.label}</p>
+                  <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{activity.detail}</p>
+                  <p className="mt-1 text-xs font-semibold text-zinc-400">{activity.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+      </div>
     </div>
   );
 }
