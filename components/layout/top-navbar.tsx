@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { BellIcon, MenuIcon, SearchIcon } from "@/components/ui/icons";
 import { navigation } from "@/components/layout/navigation";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 export function TopNavbar({ onMenuClick }: { onMenuClick: () => void }) {
   const pathname = usePathname();
@@ -30,6 +31,7 @@ export function TopNavbar({ onMenuClick }: { onMenuClick: () => void }) {
             aria-label="Search dashboard"
           />
         </label>
+        <ThemeToggle />
         <button
           className="relative grid h-11 w-11 place-items-center rounded-2xl border border-white/70 bg-white/70 text-zinc-700 shadow-sm transition hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-white"
           aria-label="Notifications"

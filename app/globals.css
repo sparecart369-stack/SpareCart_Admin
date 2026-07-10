@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="night"], [data-theme="night"] *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --shell-background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.2), transparent 30%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.18), transparent 28%),
+    linear-gradient(135deg, #f8fafc, #eef2ff 45%, #f8fafc);
+  --shell-foreground: #09090b;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,11 +20,16 @@
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark,
+[data-theme="night"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --shell-background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 30%),
+    radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 28%),
+    linear-gradient(135deg, #020617, #18181b 50%, #020617);
+  --shell-foreground: #ffffff;
+  color-scheme: dark;
 }
 
 body {
@@ -35,6 +48,14 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.app-shell-frame {
+  background: var(--shell-background);
+  color: var(--shell-foreground);
+  transition:
+    background 220ms ease,
+    color 220ms ease;
 }
 
 button,
