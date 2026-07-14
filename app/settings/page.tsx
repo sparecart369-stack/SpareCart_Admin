@@ -4,6 +4,7 @@ import { useState } from "react";
 import { GlassCard } from "@/components/cards/glass-card";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
+import { SupabaseStatus } from "@/components/supabase-status";
 
 export default function SettingsPage() {
   const [darkReady, setDarkReady] = useState(true);
@@ -50,8 +51,9 @@ export default function SettingsPage() {
 
         <GlassCard title="Security" subtitle="Protect the founder account">
           <SettingToggle label="Two-factor authentication" description="Require an additional verification step on login." checked={twoFactor} onChange={setTwoFactor} />
-          <div className="mt-5 rounded-2xl bg-amber-500/10 p-4 text-sm leading-6 text-amber-800 dark:text-amber-200">
-            Supabase authentication is intentionally not connected yet. These controls are UI-ready dummy states.
+          <div className="mt-5">
+            <p className="mb-3 text-sm font-bold text-zinc-700 dark:text-zinc-200">Database Connection</p>
+            <SupabaseStatus />
           </div>
         </GlassCard>
       </div>
