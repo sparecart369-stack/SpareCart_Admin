@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import type { SparePart } from "@/types/admin";
 
 /**
  * Test Supabase connection
@@ -24,19 +25,33 @@ export async function testSupabaseConnection() {
 /**
  * Fetch spare parts from Supabase
  */
-export async function fetchSpareParts() {
-  try {
-    const { data, error } = await supabase
-      .from("spare_parts")
-      .select("*")
-      .order("created_at", { ascending: false });
-    
-    if (error) throw error;
-    return data || [];
-  } catch (err) {
-    console.error("Error fetching spare parts:", err);
-    return [];
-  }
+export async function fetchSpareParts(): Promise<SparePart[]> {
+  const { data, error } = await supabase
+    .from("spare_parts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return (data || []).map((item: any) => ({
+    id: item.id,
+    image: item.image || "",
+    name: item.name || "Unknown",
+    brand: item.brand || "General",
+    model: item.model || "Standard",
+    category: item.category || "General",
+    price: item.price || 0,
+    seller: item.seller || "Unknown",
+    status:
+      item.status === "Out of Stock"
+        ? "Out of Stock"
+        : item.status === "Low Stock"
+        ? "Low Stock"
+        : "In Stock",
+    dateAdded: item.date_added
+      ? new Date(item.date_added).toLocaleDateString()
+      : new Date(item.created_at).toLocaleDateString(),
+  }));
 }
 
 /**

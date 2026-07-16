@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { DataTable, type Column } from "@/components/tables/data-table";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatCurrency } from "@/lib/utils";
-import { supabase } from "@/lib/supabase";
+import { fetchSpareParts } from "@/lib/supabase-queries";
 import type { SparePart } from "@/types/admin";
 
 const columns: Column<SparePart>[] = [
@@ -39,44 +39,22 @@ export default function SparePartsPage() {
 
   async function getListings() {
     try {
-      console.log("Fetching listings from Supabase...");
-      
-      const { data, error } = await supabase
-        .from("listings")
-        .select("*")
-        .eq("status", "active")
-        .order("created_at", { ascending: false });
+      console.log("Fetching spare parts from Supabase...");
 
-      if (error) {
-        console.error("❌ Supabase Error:", error.message, error.details);
-        setSpareParts(mockSpareParts);
-        setIsFromSupabase(false);
-      } else if (data && data.length > 0) {
-        console.log("✅ Supabase Connected! Fetched", data.length, "listings");
-        
-        // Transform Supabase data to SparePart format
-        const transformedData = data.map((item: any) => ({
-          id: item.id,
-          image: item.image_url || "",
-          name: item.name || "Unknown",
-          brand: item.category || "General",
-          model: item.condition || "Standard",
-          category: item.category || "General",
-          price: item.price || 0,
-          seller: item.seller_id ? `Seller ${item.seller_id}` : "Unknown",
-          status: item.status === "active" ? "In Stock" : "Out of Stock",
-          dateAdded: new Date(item.created_at).toLocaleDateString(),
-        }));
-        
-        setSpareParts(transformedData);
+      const data = await fetchSpareParts();
+
+      if (data.length > 0) {
+        console.log("✅ Supabase Connected! Fetched", data.length, "spare parts");
+        setSpareParts(data);
         setIsFromSupabase(true);
       } else {
-        console.warn("⚠️ No listings found on Supabase, using mock data");
+        console.warn("⚠️ No spare parts found on Supabase, using mock data");
         setSpareParts(mockSpareParts);
         setIsFromSupabase(false);
       }
     } catch (err) {
-      console.error("❌ Error fetching listings:", err);
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("❌ Error fetching spare parts:", message, err);
       setSpareParts(mockSpareParts);
       setIsFromSupabase(false);
     }
