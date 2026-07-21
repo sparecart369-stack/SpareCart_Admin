@@ -1,97 +1,40 @@
-"use client";
+import { ListingGrid } from "@/components/ListingGrid";
+import { getListings } from "@/lib/supabase/listings";
+import type { Listing } from "@/types/listing";
 
-import { useEffect, useState } from "react";
-import { spareParts as mockSpareParts } from "@/data/admin-data";
-import { PageHeader } from "@/components/layout/page-header";
-import { DataTable, type Column } from "@/components/tables/data-table";
-import { StatusBadge } from "@/components/ui/status-badge";
-import { formatCurrency } from "@/lib/utils";
-import { fetchSpareParts } from "@/lib/supabase-queries";
-import type { SparePart } from "@/types/admin";
+export const metadata = {
+  title: "Spare Parts",
+};
 
-const columns: Column<SparePart>[] = [
-  {
-    key: "image",
-    header: "Image",
-    render: (part) => (
-      <div className="grid h-12 w-14 place-items-center rounded-2xl bg-gradient-to-br from-zinc-900 via-emerald-700 to-sky-600 text-xs font-black text-white shadow-lg shadow-zinc-950/10">
-        {part.name.slice(0, 2).toUpperCase()}
-      </div>
-    ),
-  },
-  { key: "name", header: "Product Name", render: (part) => <span className="font-bold text-zinc-950 dark:text-white">{part.name}</span> },
-  { key: "brand", header: "Category", render: (part) => part.brand },
-  { key: "model", header: "Type", render: (part) => part.model },
-  { key: "category", header: "Category", render: (part) => part.category },
-  { key: "price", header: "Price", render: (part) => <span className="font-black">{formatCurrency(part.price)}</span> },
-  { key: "seller", header: "Seller", render: (part) => part.seller },
-  { key: "status", header: "Status", render: (part) => <StatusBadge status={part.status} /> },
-  { key: "dateAdded", header: "Date Added", render: (part) => part.dateAdded },
-];
-
-export default function SparePartsPage() {
-  const [spareParts, setSpareParts] = useState<SparePart[]>(mockSpareParts);
-  const [isFromSupabase, setIsFromSupabase] = useState(false);
-
-  useEffect(() => {
-    getListings();
-  }, []);
-
-  async function getListings() {
-    try {
-      console.log("Fetching spare parts from Supabase...");
-
-      const data = await fetchSpareParts();
-
-      if (data.length > 0) {
-        console.log("✅ Supabase Connected! Fetched", data.length, "spare parts");
-        setSpareParts(data);
-        setIsFromSupabase(true);
-      } else {
-        console.warn("⚠️ No spare parts found on Supabase, using mock data");
-        setSpareParts(mockSpareParts);
-        setIsFromSupabase(false);
-      }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.error("❌ Error fetching spare parts:", message, err);
-      setSpareParts(mockSpareParts);
-      setIsFromSupabase(false);
-    }
+async function loadListings() {
+  try {
+    return { listings: await getListings(), error: null };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error("Error loading spare parts listings:", errorMessage);
+    return { listings: [] as Listing[], error: errorMessage };
   }
+}
+
+export default async function SparePartsPage() {
+  const { listings, error } = await loadListings();
 
   return (
-    <div className="animate-float-in">
-      <PageHeader
-        title="Spare Parts"
-        description="Review listings, inventory condition, sellers, pricing, and category coverage across the marketplace."
-      />
-      
-      {!isFromSupabase && (
-        <div className="mb-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
-          ⚠️ Showing mock data. Check browser console for connection details.
+    <main className="max-w-7xl mx-auto px-6 py-10">
+      <h1 className="text-4xl font-bold">Spare Parts</h1>
+
+      <p className="mt-2 text-gray-500">Browse all active spare parts.</p>
+
+      {error ? (
+        <div className="mt-6 rounded-3xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+          <p className="font-semibold">Unable to load listings.</p>
+          <p>{error}</p>
         </div>
-      )}
-      
-      {isFromSupabase && (
-        <div className="mb-4 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200">
-          ✅ Connected to Supabase - Displaying live listings
-        </div>
-      )}
-      
-      <DataTable
-        title="Product Inventory"
-        data={spareParts}
-        columns={columns}
-        searchKeys={["name", "brand", "model", "category", "seller", "status"]}
-        filterKey="status"
-        filters={[
-          { label: "In Stock", value: "In Stock" },
-          { label: "Low Stock", value: "Low Stock" },
-          { label: "Out of Stock", value: "Out of Stock" },
-        ]}
-        showView
-      />
-    </div>
+      ) : null}
+
+      <div className="mt-8">
+        <ListingGrid listings={listings} />
+      </div>
+    </main>
   );
 }

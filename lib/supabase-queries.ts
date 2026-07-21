@@ -5,14 +5,18 @@ import type { SparePart } from "@/types/admin";
  * Test Supabase connection
  */
 export async function testSupabaseConnection() {
+  if (!supabase) {
+    return { connected: false, error: "Supabase is not configured." };
+  }
+
   try {
     const { data, error } = await supabase.from("spare_parts").select("count()").limit(1);
-    
+
     if (error) {
       console.error("❌ Supabase connection failed:", error.message);
       return { connected: false, error: error.message };
     }
-    
+
     console.log("✅ Supabase connection successful!");
     return { connected: true };
   } catch (err) {
@@ -26,6 +30,10 @@ export async function testSupabaseConnection() {
  * Fetch spare parts from Supabase
  */
 export async function fetchSpareParts(): Promise<SparePart[]> {
+  if (!supabase) {
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("spare_parts")
     .select("*")
@@ -58,6 +66,10 @@ export async function fetchSpareParts(): Promise<SparePart[]> {
  * Fetch customers from Supabase
  */
 export async function fetchCustomers() {
+  if (!supabase) {
+    return [];
+  }
+
   try {
     const { data, error } = await supabase
       .from("customers")
@@ -76,6 +88,10 @@ export async function fetchCustomers() {
  * Fetch sellers from Supabase
  */
 export async function fetchSellers() {
+  if (!supabase) {
+    return [];
+  }
+
   try {
     const { data, error } = await supabase
       .from("sellers")
@@ -94,6 +110,10 @@ export async function fetchSellers() {
  * Fetch orders from Supabase
  */
 export async function fetchOrders() {
+  if (!supabase) {
+    return [];
+  }
+
   try {
     const { data, error } = await supabase
       .from("orders")
@@ -112,6 +132,10 @@ export async function fetchOrders() {
  * Fetch product listings from Supabase
  */
 export async function fetchListings() {
+  if (!supabase) {
+    return [];
+  }
+
   try {
     const { data, error } = await supabase
       .from("listings")

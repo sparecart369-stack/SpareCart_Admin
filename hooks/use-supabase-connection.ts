@@ -9,8 +9,14 @@ export function useSupabaseConnection() {
 
   useEffect(() => {
     const testConnection = async () => {
+      if (!supabase) {
+        setError("Supabase is not configured. Update NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
+        setConnected(false);
+        return;
+      }
+
       try {
-        const { data, error: err } = await supabase.from("spare_parts").select("count()").limit(1);
+        const { data, error: err } = await supabase.from("spare_parts").select("count()", { count: "exact", head: true });
         
         if (err) {
           console.error("❌ Supabase connection failed:", err.message);
