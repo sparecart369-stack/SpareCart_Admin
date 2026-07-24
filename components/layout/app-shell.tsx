@@ -1,11 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TopNavbar } from "@/components/layout/top-navbar";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomeRoute = pathname === "/";
+
+  if (isHomeRoute) {
+    return <div className="min-h-screen w-full">{children}</div>;
+  }
 
   return (
     <div className="app-shell-frame min-h-screen">
