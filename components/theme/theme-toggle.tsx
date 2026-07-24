@@ -5,7 +5,7 @@ import { MoonIcon, SunIcon } from "@/components/ui/icons";
 
 type Theme = "day" | "night";
 
-const storageKey = "sparecart-theme";
+const storageKey = "sparekart-theme";
 
 function getPreferredTheme(): Theme {
   if (typeof window === "undefined") {

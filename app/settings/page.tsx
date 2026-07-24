@@ -21,11 +21,11 @@ export default function SettingsPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-2">
               <span className="text-sm font-bold text-zinc-700 dark:text-zinc-200">Name</span>
-              <input className="h-12 w-full rounded-2xl border border-zinc-200 bg-white px-4 outline-none focus:ring-2 focus:ring-emerald-400/50 dark:border-white/10 dark:bg-white/10" defaultValue="Spare Cart Admin" />
+              <input className="h-12 w-full rounded-2xl border border-zinc-200 bg-white px-4 outline-none focus:ring-2 focus:ring-emerald-400/50 dark:border-white/10 dark:bg-white/10" defaultValue="SpareKart Admin" />
             </label>
             <label className="space-y-2">
               <span className="text-sm font-bold text-zinc-700 dark:text-zinc-200">Email</span>
-              <input className="h-12 w-full rounded-2xl border border-zinc-200 bg-white px-4 outline-none focus:ring-2 focus:ring-emerald-400/50 dark:border-white/10 dark:bg-white/10" defaultValue="admin@sparecart.example" />
+              <input className="h-12 w-full rounded-2xl border border-zinc-200 bg-white px-4 outline-none focus:ring-2 focus:ring-emerald-400/50 dark:border-white/10 dark:bg-white/10" defaultValue="admin@sparekart.example" />
             </label>
             <label className="space-y-2 sm:col-span-2">
               <span className="text-sm font-bold text-zinc-700 dark:text-zinc-200">Role</span>
