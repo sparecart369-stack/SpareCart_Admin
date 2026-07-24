@@ -99,6 +99,8 @@ const socialLinks = [
   { label: "LinkedIn", href: "https://linkedin.com" },
 ];
 
+const mobileAppUrl = "https://play.google.com/store/apps/details?id=com.spare.kart";
+
 function SectionTitle({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
     <div className="max-w-2xl space-y-3">
@@ -242,7 +244,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7fbf9] text-zinc-900">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.18),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.18),_transparent_28%),linear-gradient(135deg,_#f8fafc_0%,_#eef2ff_45%,_#f8fafc_100%)] text-zinc-900">
       <div className="fixed left-0 top-0 z-50 h-1 rounded-r-full bg-emerald-500 transition-all" style={{ width: `${progress}%` }} />
 
       <button
@@ -254,7 +256,7 @@ export default function HomePage() {
         ↑
       </button>
 
-      <header className={`sticky top-0 z-40 transition-all ${scrolled ? "bg-white/85 shadow-sm backdrop-blur-xl" : "bg-transparent"}`}>
+      <header className={`sticky top-0 z-40 transition-all ${scrolled ? "border-b border-white/60 bg-white/80 shadow-[0_8px_30px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl" : "bg-transparent"}`}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link href="#home" className="text-xl font-black tracking-tight text-zinc-950" onClick={() => setMobileMenuOpen(false)}>
             SpareCart
@@ -270,7 +272,7 @@ export default function HomePage() {
             <Link href="/admin" className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100">
               Admin
             </Link>
-            <a href="#contact" className="hidden rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700 sm:inline-flex">
+            <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="hidden rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700 sm:inline-flex">
               Download App
             </a>
             <button type="button" className="rounded-full border border-zinc-200 bg-white p-2 lg:hidden" onClick={() => setMobileMenuOpen((value) => !value)} aria-label="Toggle menu">
@@ -295,10 +297,10 @@ export default function HomePage() {
       </header>
 
       <section id="home" className="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:px-6 lg:px-8 lg:pb-16 lg:pt-8">
-        <div className="overflow-hidden rounded-[36px] border border-zinc-200 bg-white shadow-[0_30px_70px_-30px_rgba(15,23,42,0.28)]">
-          <div className="grid gap-8 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-8 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:p-14">
+        <div className="overflow-hidden rounded-[36px] border border-white/70 bg-white/80 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.28)] backdrop-blur-xl">
+          <div className="grid gap-8 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.16),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.95),_rgba(240,249,255,0.9)_55%,_rgba(247,244,255,0.95))] p-8 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:p-14">
             <div className="space-y-6">
-              <div className="inline-flex rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
+              <div className="inline-flex rounded-full border border-emerald-200/80 bg-gradient-to-r from-emerald-500/15 via-white to-sky-500/15 px-3 py-1 text-sm font-semibold text-emerald-700">
                 SpareCart • Mobile marketplace for spare parts
               </div>
               <h1 className="max-w-2xl text-4xl font-black leading-tight text-zinc-950 sm:text-5xl lg:text-6xl">
@@ -308,10 +310,10 @@ export default function HomePage() {
                 Buy and sell vehicle spare parts easily with a modern mobile experience designed for buyers, sellers, mechanics, and automotive businesses.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#contact" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">
+                <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-sky-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:brightness-110">
                   Download the App
                 </a>
-                <a href="#how-it-works" className="rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50">
+                <a href="#how-it-works" className="rounded-2xl border border-zinc-200 bg-white/80 px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-white">
                   Explore How It Works
                 </a>
               </div>
@@ -322,7 +324,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative rounded-[28px] border border-zinc-200 bg-zinc-950 p-6 text-white shadow-2xl">
+            <div className="relative rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-900 p-6 text-white shadow-2xl">
               <div className="absolute -left-3 top-7 h-24 w-24 rounded-full bg-emerald-500/20 blur-3xl" />
               <div className="absolute bottom-6 right-5 h-28 w-28 rounded-full bg-amber-400/20 blur-3xl" />
               <div className="relative rounded-[24px] border border-white/10 bg-white/10 p-5 backdrop-blur">
@@ -360,7 +362,7 @@ export default function HomePage() {
 
       <section id="about" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="rounded-[28px] border border-zinc-200 bg-white p-8 shadow-sm">
+          <div className="rounded-[28px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
             <SectionTitle eyebrow="About Us" title="We are making vehicle spare parts easier to find." description="SpareCart brings buyers and sellers together through a simple mobile marketplace designed to make spare-parts discovery faster, easier, and more reliable." />
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-emerald-50 p-5">
@@ -390,7 +392,7 @@ export default function HomePage() {
         <SectionTitle eyebrow="Why Choose SpareCart" title="A premium marketplace experience for every automotive need." description="From part discovery to seller connection and business growth, SpareCart is built to support a modern automotive ecosystem." />
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {features.map((feature) => (
-            <div key={feature.title} className="rounded-[24px] border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div key={feature.title} className="rounded-[24px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-xl">✦</div>
               <h3 className="mt-4 text-xl font-black text-zinc-950">{feature.title}</h3>
               <p className="mt-2 text-sm leading-7 text-zinc-600">{feature.description}</p>
@@ -402,7 +404,7 @@ export default function HomePage() {
       <section id="how-it-works" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <SectionTitle eyebrow="How It Works" title="Simple flows for buyers and sellers alike." description="Whether you need a part fast or want to list one you already have, SpareCart keeps the process clear and smooth." />
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[28px] border border-zinc-200 bg-white p-6 shadow-sm">
+          <div className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
             <h3 className="text-2xl font-black text-zinc-950">For Buyers</h3>
             <div className="mt-6 space-y-4">
               {buyerSteps.map((step) => (
@@ -416,7 +418,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="rounded-[28px] border border-zinc-200 bg-zinc-950 p-6 text-white shadow-sm">
+          <div className="rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-900 p-6 text-white shadow-sm">
             <h3 className="text-2xl font-black">For Sellers</h3>
             <div className="mt-6 space-y-4">
               {sellerSteps.map((step) => (
@@ -434,13 +436,13 @@ export default function HomePage() {
       </section>
 
       <section id="mobile-app" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <div className="rounded-[32px] border border-zinc-200 bg-white p-8 shadow-sm sm:p-10">
+        <div className="rounded-[32px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
               <SectionTitle eyebrow="Mobile App" title="Everything you need, right in your pocket." description="Use SpareCart to find, buy, and sell spare parts from anywhere with a polished mobile-first experience." />
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#contact" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download on Google Play</a>
-                <a href="#contact" className="rounded-2xl border border-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50">Download on App Store</a>
+                <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download on Google Play</a>
+                <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl border border-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50">Download on App Store</a>
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 {appHighlights.map((item) => (
@@ -448,7 +450,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="rounded-[28px] border border-zinc-200 bg-gradient-to-br from-zinc-950 to-zinc-800 p-6 text-white shadow-xl">
+            <div className="rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-900 p-6 text-white shadow-xl">
               <div className="mx-auto flex max-w-sm flex-col gap-3 rounded-[32px] border border-white/10 bg-white/10 p-4 shadow-2xl">
                 <div className="rounded-[24px] bg-white p-4 text-zinc-900">
                   <div className="flex items-center justify-between">
@@ -484,7 +486,7 @@ export default function HomePage() {
         <SectionTitle eyebrow="Vehicle Categories" title="Find parts for your vehicle in seconds." description="Browse vehicle categories and get to the right listing faster with a premium, structured experience." />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
-            <div key={category.name} className="group overflow-hidden rounded-[24px] border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div key={category.name} className="group overflow-hidden rounded-[24px] border border-white/70 bg-white/80 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg">
               <div className="h-28 bg-gradient-to-br from-emerald-100 to-amber-100" />
               <div className="p-6">
                 <h3 className="text-xl font-black text-zinc-950">{category.name}</h3>
@@ -503,7 +505,7 @@ export default function HomePage() {
             { title: "Mechanics", description: "Quickly discover parts for customer vehicles." },
             { title: "Automotive Businesses", description: "Expand your digital presence and reach new customers." },
           ].map((benefit) => (
-            <div key={benefit.title} className="rounded-[24px] border border-zinc-200 bg-white p-6 shadow-sm">
+            <div key={benefit.title} className="rounded-[24px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
               <h3 className="text-xl font-black text-zinc-950">{benefit.title}</h3>
               <p className="mt-2 text-sm leading-7 text-zinc-600">{benefit.description}</p>
             </div>
@@ -513,7 +515,7 @@ export default function HomePage() {
 
       <section id="reviews" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <SectionTitle eyebrow="Customer Reviews" title="What our community says about SpareCart." description="Real feedback from users who value speed, trust, and a better way to find vehicle parts." />
-        <div className="mt-8 rounded-[32px] border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="mt-8 rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl sm:p-8">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-lg font-black text-zinc-950">{testimonials[reviewIndex].name}</p>
@@ -537,7 +539,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <div className="rounded-[32px] border border-zinc-200 bg-white p-8 shadow-sm">
+        <div className="rounded-[32px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
           <SectionTitle eyebrow="App Features" title="Built for clarity, speed, and trust." description="Every part of the experience is designed to help users browse, compare, and connect with confidence." />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -558,12 +560,12 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <div className="rounded-[32px] border border-zinc-200 bg-gradient-to-br from-emerald-50 to-white p-8 shadow-sm">
+        <div className="rounded-[32px] border border-white/70 bg-gradient-to-br from-emerald-500/10 via-white to-sky-500/10 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <div>
               <SectionTitle eyebrow="Trust & Safety" title="A marketplace experience designed to build confidence." description="SpareCart focuses on clear listings, user profiles, transparent pricing, and simple communication so the marketplace feels trustworthy and useful." />
             </div>
-            <div className="rounded-[24px] border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[24px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
               <ul className="space-y-3 text-sm leading-7 text-zinc-600">
                 <li>• Seller profiles and product details help reduce uncertainty.</li>
                 <li>• Clear pricing and availability make comparison easier.</li>
@@ -593,12 +595,12 @@ export default function HomePage() {
               Join the SpareCart community and make buying and selling vehicle spare parts easier and more efficient.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#contact" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download the App</a>
+              <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download the App</a>
               <a href="#about" className="rounded-2xl border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-200 transition hover:bg-white/10">Learn More</a>
             </div>
           </div>
 
-          <div className="rounded-[32px] border border-zinc-200 bg-white p-8 shadow-sm">
+          <div className="rounded-[32px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
             <h3 className="text-2xl font-black text-zinc-950">Get in touch</h3>
             <p className="mt-2 text-sm leading-7 text-zinc-600">Have a question, suggestion, or partnership opportunity? We would love to hear from you.</p>
             <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
@@ -667,7 +669,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-zinc-200 bg-white/80">
+      <footer className="border-t border-zinc-200/70 bg-white/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-8">
           <div className="max-w-md">
             <p className="text-xl font-black text-zinc-950">SpareCart</p>
