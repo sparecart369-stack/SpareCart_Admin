@@ -25,12 +25,20 @@ const navItems = [
 ];
 
 const categories = [
-  { name: "Cars", desc: "Engine and body parts" },
-  { name: "Motorcycles", desc: "Performance and service parts" },
-  { name: "Scooters", desc: "Daily commute essentials" },
-  { name: "Trucks", desc: "Heavy-duty commercial units" },
-  { name: "Buses", desc: "Fleet and transport spares" },
-  { name: "Accessories", desc: "Premium add-ons and tools" },
+  { name: "Engine", desc: "Block, pistons, cylinder heads & turbochargers", icon: "⚙️", count: "3,420+ parts", image: "/categories/engine.jpg", tag: "High Demand" },
+  { name: "Transmission", desc: "Gearboxes, clutches, flywheels & drive shafts", icon: "🔄", count: "1,850+ parts", tag: "Essential" },
+  { name: "AC System", desc: "Compressors, condensers, evaporators & cooling fans", icon: "❄️", count: "920+ parts", tag: "Seasonal" },
+  { name: "Body Parts", desc: "Bumpers, doors, hoods, fenders & side mirrors", icon: "🚗", count: "2,600+ parts", tag: "Popular" },
+  { name: "Suspension", desc: "Shock absorbers, struts, control arms & coil springs", icon: "🔩", count: "1,450+ parts", tag: "Smooth Drive" },
+  { name: "Brakes", desc: "Discs, red performance calipers, pads & ABS units", icon: "🛑", count: "2,100+ parts", image: "/categories/brakes.jpg", tag: "Safety First" },
+  { name: "Electrical", desc: "Batteries, alternators, starters & wiring looms", icon: "⚡", count: "1,780+ parts", tag: "Core Tech" },
+  { name: "Accessories", desc: "Floor mats, car covers, seat protectors & utility tools", icon: "🎒", count: "4,100+ parts", tag: "Trending" },
+  { name: "Sensors & Modules", desc: "ECUs, oxygen sensors, MAF meters & ABS modules", icon: "🎛️", count: "1,120+ parts", tag: "Smart Electronics" },
+  { name: "Interior", desc: "Dashboards, leather seats, steering wheels & knobs", icon: "🪑", count: "1,640+ parts", tag: "Comfort" },
+  { name: "Wheels", desc: "Alloy rims, sport tires, wheel hubs & lug nuts", icon: "🛞", count: "2,300+ parts", tag: "Style & Grip" },
+  { name: "Lighting", desc: "LED headlights, tail lamps, fog lights & indicators", icon: "💡", count: "1,950+ parts", image: "/categories/lighting.jpg", tag: "Top Rated" },
+  { name: "Bearing", desc: "Wheel bearings, clutch release bearings & ball bearings", icon: "⚙️", count: "890+ parts", tag: "Precision" },
+  { name: "Fuel System", desc: "Fuel pumps, injectors, fuel filters & tanks", icon: "⛽", count: "1,310+ parts", tag: "Efficiency" },
 ];
 
 const features = [
@@ -256,39 +264,44 @@ export default function HomePage() {
         ↑
       </button>
 
-      <header className={`sticky top-0 z-40 transition-all ${scrolled ? "border-b border-white/60 bg-white/80 shadow-[0_8px_30px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl" : "bg-transparent"}`}>
+      <header className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/60 bg-white/80 shadow-[0_8px_30px_-15px_rgba(16,185,129,0.15)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-950/80" : "bg-transparent"}`}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="#home" className="text-xl font-black tracking-tight text-zinc-950" onClick={() => setMobileMenuOpen(false)}>
-            SpareKart
+          <Link href="#home" className="group flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-tr from-emerald-500 via-sky-500 to-indigo-500 text-sm font-black text-white shadow-md shadow-emerald-500/25 transition-transform group-hover:scale-105">
+              SK
+            </span>
+            <span className="font-display text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
+              SpareKart
+            </span>
           </Link>
-          <div className="hidden items-center gap-6 lg:flex">
+          <div className="hidden items-center gap-7 lg:flex">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className={`text-sm font-semibold transition ${activeSection === item.href.replace("#", "") ? "text-emerald-600" : "text-zinc-600 hover:text-zinc-950"}`}>
+              <a key={item.href} href={item.href} className={`text-sm font-bold transition-all ${activeSection === item.href.replace("#", "") ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"}`}>
                 {item.label}
               </a>
             ))}
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/admin" className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100">
-              Admin
+            <Link href="/admin" className="relative inline-flex items-center justify-center overflow-hidden rounded-2xl border border-emerald-400/40 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-sky-500/10 px-4.5 py-2 text-sm font-bold text-emerald-700 shadow-sm transition-all hover:border-emerald-500 hover:bg-emerald-500/20 dark:text-emerald-300">
+              Admin Platform
             </Link>
-            <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="hidden rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700 sm:inline-flex">
+            <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="hidden rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 hover:shadow-emerald-500/35 sm:inline-flex">
               Download App
             </a>
-            <button type="button" className="rounded-full border border-zinc-200 bg-white p-2 lg:hidden" onClick={() => setMobileMenuOpen((value) => !value)} aria-label="Toggle menu">
-              <span className="block h-0.5 w-5 bg-zinc-900" />
+            <button type="button" className="rounded-2xl border border-zinc-200 bg-white p-2.5 text-zinc-800 dark:border-white/10 dark:bg-white/10 dark:text-white lg:hidden" onClick={() => setMobileMenuOpen((value) => !value)} aria-label="Toggle menu">
+              <span className="block h-0.5 w-5 bg-current" />
             </button>
           </div>
         </nav>
         {mobileMenuOpen ? (
-          <div className="border-t border-zinc-200 bg-white/95 px-4 py-4 lg:hidden">
-            <div className="flex flex-col gap-3">
+          <div className="border-t border-zinc-200/80 bg-white/95 px-4 py-5 backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-950/95 lg:hidden">
+            <div className="flex flex-col gap-3.5">
               {navItems.map((item) => (
-                <a key={item.href} href={item.href} className="text-sm font-semibold text-zinc-700" onClick={() => setMobileMenuOpen(false)}>
+                <a key={item.href} href={item.href} className="text-base font-bold text-zinc-800 dark:text-zinc-200" onClick={() => setMobileMenuOpen(false)}>
                   {item.label}
                 </a>
               ))}
-              <Link href="/admin" className="rounded-full bg-emerald-600 px-4 py-2 text-center text-sm font-semibold text-white" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/admin" className="rounded-2xl bg-emerald-600 px-4 py-3 text-center text-sm font-bold text-white shadow-lg" onClick={() => setMobileMenuOpen(false)}>
                 Go to Admin Dashboard
               </Link>
             </div>
@@ -296,62 +309,70 @@ export default function HomePage() {
         ) : null}
       </header>
 
-      <section id="home" className="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:px-6 lg:px-8 lg:pb-16 lg:pt-8">
-        <div className="overflow-hidden rounded-[36px] border border-white/70 bg-white/80 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.28)] backdrop-blur-xl">
-          <div className="grid gap-8 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.16),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.95),_rgba(240,249,255,0.9)_55%,_rgba(247,244,255,0.95))] p-8 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:p-14">
-            <div className="space-y-6">
-              <div className="inline-flex rounded-full border border-emerald-200/80 bg-gradient-to-r from-emerald-500/15 via-white to-sky-500/15 px-3 py-1 text-sm font-semibold text-emerald-700">
-                SpareKart • Mobile marketplace for spare parts
+      <section id="home" className="relative mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 lg:px-8 lg:pb-20 lg:pt-8">
+        <div className="relative overflow-hidden rounded-[40px] border border-white/80 bg-white/85 shadow-2xl shadow-emerald-950/10 backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/80">
+          <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl" />
+          <div className="grid gap-10 bg-gradient-to-br from-white/90 via-sky-50/40 to-emerald-50/50 p-8 sm:p-12 lg:grid-cols-[1.1fr_0.9fr] lg:p-16 dark:from-zinc-900/90 dark:via-zinc-900/50 dark:to-zinc-950/90">
+            <div className="space-y-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-gradient-to-r from-emerald-500/15 via-white/80 to-sky-500/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 shadow-sm dark:text-emerald-300 dark:bg-emerald-500/20">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                SpareKart • Mobile Marketplace for Spare Parts
               </div>
-              <h1 className="max-w-2xl text-4xl font-black leading-tight text-zinc-950 sm:text-5xl lg:text-6xl">
-                Your Spare Parts. Your Marketplace. Your Drive.
+              <h1 className="font-display max-w-2xl text-4xl font-black leading-tight tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl dark:text-white">
+                Your Spare Parts. <span className="gradient-text-emerald">Your Marketplace.</span> Your Drive.
               </h1>
-              <p className="max-w-2xl text-lg leading-8 text-zinc-600">
-                Buy and sell vehicle spare parts easily with a modern mobile experience designed for buyers, sellers, mechanics, and automotive businesses.
+              <p className="max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg dark:text-zinc-300">
+                Discover, buy, and sell vehicle spare parts with a modern mobile marketplace built for vehicle owners, mechanics, sellers, and automotive businesses.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-sky-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:brightness-110">
-                  Download the App
+              <div className="flex flex-wrap gap-4 pt-1">
+                <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-6 py-3.5 text-base font-bold text-white shadow-xl shadow-emerald-500/25 transition-all hover:scale-105 hover:shadow-emerald-500/40">
+                  <span className="relative z-10 flex items-center gap-2">
+                    Download the App
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </span>
                 </a>
-                <a href="#how-it-works" className="rounded-2xl border border-zinc-200 bg-white/80 px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-white">
+                <a href="#how-it-works" className="rounded-2xl border border-zinc-200/90 bg-white/90 px-6 py-3.5 text-base font-bold text-zinc-800 shadow-sm transition-all hover:border-emerald-500/40 hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-white">
                   Explore How It Works
                 </a>
               </div>
-              <div className="flex flex-wrap gap-3 pt-2 text-sm font-semibold text-zinc-600">
-                <span className="rounded-full border border-zinc-200 bg-white px-3 py-2">Easy to Buy</span>
-                <span className="rounded-full border border-zinc-200 bg-white px-3 py-2">Easy to Sell</span>
-                <span className="rounded-full border border-zinc-200 bg-white px-3 py-2">Trusted Marketplace</span>
+              <div className="flex flex-wrap gap-3 pt-3 text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-300">
+                <span className="rounded-2xl border border-emerald-500/30 bg-white/90 px-3.5 py-2 shadow-sm dark:bg-white/10">⚡ Easy to Buy</span>
+                <span className="rounded-2xl border border-sky-500/30 bg-white/90 px-3.5 py-2 shadow-sm dark:bg-white/10">🚀 Easy to Sell</span>
+                <span className="rounded-2xl border border-purple-500/30 bg-white/90 px-3.5 py-2 shadow-sm dark:bg-white/10">🛡️ Verified Sellers</span>
               </div>
             </div>
 
-            <div className="relative rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-900 p-6 text-white shadow-2xl">
-              <div className="absolute -left-3 top-7 h-24 w-24 rounded-full bg-emerald-500/20 blur-3xl" />
-              <div className="absolute bottom-6 right-5 h-28 w-28 rounded-full bg-amber-400/20 blur-3xl" />
-              <div className="relative rounded-[24px] border border-white/10 bg-white/10 p-5 backdrop-blur">
+            <div className="relative rounded-[32px] border border-white/20 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-950 p-7 text-white shadow-2xl">
+              <div className="absolute -left-6 top-8 h-32 w-32 rounded-full bg-emerald-500/25 blur-3xl" />
+              <div className="absolute bottom-8 right-6 h-36 w-36 rounded-full bg-sky-500/20 blur-3xl" />
+              <div className="relative rounded-[24px] border border-white/15 bg-white/10 p-6 backdrop-blur-xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">Live marketplace</p>
-                    <p className="mt-2 text-2xl font-black">New listing today</p>
+                    <p className="font-display text-xs font-bold uppercase tracking-widest text-emerald-400">Live Activity Feed</p>
+                    <p className="font-display mt-1 text-2xl font-black">Marketplace Active</p>
                   </div>
-                  <div className="rounded-full bg-emerald-500/20 px-3 py-1 text-sm font-semibold text-emerald-300">Verified</div>
+                  <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300 border border-emerald-500/30">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> Live
+                  </div>
                 </div>
-                <div className="mt-6 rounded-[20px] bg-white p-4 text-zinc-900">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-xl">⚙️</div>
+                <div className="mt-6 rounded-2xl bg-white p-4.5 text-zinc-900 shadow-lg">
+                  <div className="flex items-center gap-3.5">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 text-2xl shadow-inner">⚙️</div>
                     <div>
-                      <p className="font-black">Genuine Engine Filter</p>
-                      <p className="text-sm text-zinc-600">₹2,500 • Available near you</p>
+                      <p className="font-display font-black text-base">Genuine Engine Filter</p>
+                      <p className="text-xs font-semibold text-zinc-600">₹2,500 • Verified Seller nearby</p>
                     </div>
                   </div>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <p className="text-sm text-zinc-300">Fast discovery</p>
-                    <p className="mt-1 text-lg font-black">10k+ listings</p>
+                    <p className="text-xs font-medium text-zinc-300">Active Discovery</p>
+                    <p className="font-display mt-1 text-xl font-black text-emerald-400">10,000+ Listings</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <p className="text-sm text-zinc-300">Seller trust</p>
-                    <p className="mt-1 text-lg font-black">1k+ sellers</p>
+                    <p className="text-xs font-medium text-zinc-300">Seller Network</p>
+                    <p className="font-display mt-1 text-xl font-black text-sky-400">1,000+ Verified</p>
                   </div>
                 </div>
               </div>
@@ -482,15 +503,142 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="categories" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SectionTitle eyebrow="Vehicle Categories" title="Find parts for your vehicle in seconds." description="Browse vehicle categories and get to the right listing faster with a premium, structured experience." />
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section id="categories" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
+        <SectionTitle
+          eyebrow="Explore Vehicle Categories"
+          title="Find parts for your vehicle in seconds."
+          description="Browse vehicle categories and get to the right listing faster with a premium, structured experience."
+        />
+
+        {/* Vehicle Filter Selector Box (matching mobile app screenshot) */}
+        <div className="mt-8 rounded-[32px] border border-white/80 bg-white/80 p-6 shadow-xl backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/80 sm:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-200/80 pb-5 dark:border-white/10">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <h3 className="font-display text-xl font-black text-zinc-950 dark:text-white">Smart Vehicle Filter</h3>
+              </div>
+              <p className="mt-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400">Specify your vehicle details to pinpoint exact fitting parts instantly.</p>
+            </div>
+            <span className="rounded-full bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
+              Instant Compatibility Check
+            </span>
+          </div>
+
+          <form onSubmit={(e) => e.preventDefault()} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Make / Brand</label>
+              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
+                <option value="">Select Make</option>
+                <option value="toyota">Toyota</option>
+                <option value="honda">Honda</option>
+                <option value="hyundai">Hyundai</option>
+                <option value="maruti">Maruti Suzuki</option>
+                <option value="bmw">BMW</option>
+                <option value="tata">Tata Motors</option>
+                <option value="mahindra">Mahindra</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Model</label>
+              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
+                <option value="">Select Model</option>
+                <option value="camry">Camry / Fortuner</option>
+                <option value="civic">Civic / City</option>
+                <option value="creta">Creta / i20</option>
+                <option value="swift">Swift / Brezza</option>
+                <option value="thar">Thar / XUV700</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Year</label>
+              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
+                <option value="">Select Year</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Chassis No.</label>
+              <input
+                type="text"
+                placeholder="e.g. MA3E12..."
+                className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition placeholder:font-normal focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Part No.</label>
+              <input
+                type="text"
+                placeholder="e.g. 90919-012..."
+                className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition placeholder:font-normal focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white"
+              />
+            </div>
+          </form>
+
+          <div className="mt-5 flex justify-end">
+            <button
+              type="button"
+              className="group flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 hover:shadow-emerald-500/35"
+            >
+              <span>Apply Vehicle Filters</span>
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 14 Category Cards Grid */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {categories.map((category) => (
-            <div key={category.name} className="group overflow-hidden rounded-[24px] border border-white/70 bg-white/80 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg">
-              <div className="h-28 bg-gradient-to-br from-emerald-100 to-amber-100" />
-              <div className="p-6">
-                <h3 className="text-xl font-black text-zinc-950">{category.name}</h3>
-                <p className="mt-2 text-sm leading-7 text-zinc-600">{category.desc}</p>
+            <div
+              key={category.name}
+              className="group relative overflow-hidden rounded-[28px] border border-white/80 bg-white/80 p-5 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-500/15 dark:border-white/10 dark:bg-zinc-900/80"
+            >
+              {category.image ? (
+                <div className="relative mb-4 h-40 overflow-hidden rounded-2xl bg-zinc-900">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+                  <span className="absolute bottom-3 left-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">
+                    {category.tag}
+                  </span>
+                </div>
+              ) : (
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/15 via-sky-500/10 to-indigo-500/15 text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                    {category.icon}
+                  </div>
+                  <span className="rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold text-zinc-600 dark:bg-white/10 dark:text-zinc-300">
+                    {category.tag}
+                  </span>
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-lg font-black tracking-tight text-zinc-950 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    {category.name}
+                  </h3>
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{category.count}</span>
+                </div>
+                <p className="text-xs leading-5 text-zinc-600 dark:text-zinc-300">{category.desc}</p>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-3 text-xs font-bold text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                <span>Explore listings</span>
+                <span className="transition-transform group-hover:translate-x-1 text-emerald-600 dark:text-emerald-400">→</span>
               </div>
             </div>
           ))}

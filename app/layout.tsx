@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="day" data-scroll-behavior="smooth" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full bg-background text-foreground">
+      <body className="min-h-full bg-background text-foreground font-sans">
         <AppShell>{children}</AppShell>
       </body>
     </html>
