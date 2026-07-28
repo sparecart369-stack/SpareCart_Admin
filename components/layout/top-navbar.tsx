@@ -20,7 +20,7 @@ export function TopNavbar({ onMenuClick }: { onMenuClick: () => void }) {
           <MenuIcon className="h-5 w-5" />
         </button>
         <div className="min-w-0 flex-1">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-400">Spare Cart / {page}</div>
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-400">SpareKart / {page}</div>
           <h1 className="truncate text-lg font-black text-zinc-950 dark:text-white sm:text-2xl">{page}</h1>
         </div>
         <label className="hidden h-11 min-w-72 items-center gap-2 rounded-2xl border border-white/70 bg-white/70 px-4 text-sm text-zinc-500 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 md:flex">

@@ -2,7 +2,7 @@
 
 ## Connection Status ✅
 
-Your Spare Cart Admin Dashboard is now configured to connect to Supabase with the following details:
+Your SpareKart Admin Dashboard is now configured to connect to Supabase with the following details:
 
 - **Project URL**: https://nHQc9fan53apAtZ5LZOb.supabase.co
 - **Anon Key**: Connected ✓

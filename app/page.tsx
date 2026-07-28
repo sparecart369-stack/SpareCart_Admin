@@ -72,22 +72,22 @@ const appHighlights = [
 
 const testimonials = [
   { name: "Arjun P.", role: "Vehicle Owner", quote: "I found the exact brake parts I needed in minutes. The app felt clean, fast, and trustworthy." },
-  { name: "Meera S.", role: "Mechanic", quote: "SpareCart helps me find the right parts for customers quickly without wasting time on calls." },
+  { name: "Meera S.", role: "Mechanic", quote: "SpareKart helps me find the right parts for customers quickly without wasting time on calls." },
   { name: "Rafiq K.", role: "Spare Parts Seller", quote: "The listing experience is simple and I reached more buyers in a week than before." },
   { name: "Nikhil R.", role: "Car Enthusiast", quote: "The experience feels premium and modern. It is easy to browse parts and compare sellers." },
 ];
 
 const faqItems = [
-  { question: "What is SpareCart?", answer: "SpareCart is a mobile marketplace for buying and selling vehicle spare parts, built for users who want speed, trust, and convenience." },
+  { question: "What is SpareKart?", answer: "SpareKart is a mobile marketplace for buying and selling vehicle spare parts, built for users who want speed, trust, and convenience." },
   { question: "How can I buy spare parts?", answer: "Search by category, vehicle type, or brand, compare listings, and connect with the seller directly through the app." },
   { question: "Can I sell my spare parts?", answer: "Yes. You can create a listing, add photos, describe the condition, and share your offer with buyers." },
-  { question: "Is SpareCart available on mobile?", answer: "Yes. SpareCart is designed primarily as a mobile-first experience for easy browsing and quick communication." },
+  { question: "Is SpareKart available on mobile?", answer: "Yes. SpareKart is designed primarily as a mobile-first experience for easy browsing and quick communication." },
   { question: "Can I sell used spare parts?", answer: "Yes. Used and refurbished parts can be listed if they are described clearly and accurately." },
   { question: "How do I contact a seller?", answer: "Use the in-app contact flow to reach out, ask questions, and coordinate the purchase." },
 ];
 
 const contactCards = [
-  { title: "Email", value: "support@sparecart.com", detail: "For support, partnerships, and general inquiries." },
+  { title: "Email", value: "support@sparekart.com", detail: "For support, partnerships, and general inquiries." },
   { title: "Phone", value: "+91 98765 43210", detail: "Monday to Saturday, 9:00 AM to 6:00 PM." },
   { title: "Location", value: "Kerala, India", detail: "Serving customers and sellers across regional markets." },
 ];
@@ -236,7 +236,7 @@ export default function HomePage() {
         <div className="rounded-full border border-emerald-100 bg-white/80 px-6 py-4 shadow-lg backdrop-blur">
           <div className="flex items-center gap-3">
             <div className="h-3 w-3 animate-pulse rounded-full bg-emerald-500" />
-            <span className="text-sm font-semibold text-zinc-700">Loading SpareCart...</span>
+            <span className="text-sm font-semibold text-zinc-700">Loading SpareKart...</span>
           </div>
         </div>
       </main>
@@ -259,7 +259,7 @@ export default function HomePage() {
       <header className={`sticky top-0 z-40 transition-all ${scrolled ? "border-b border-white/60 bg-white/80 shadow-[0_8px_30px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl" : "bg-transparent"}`}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link href="#home" className="text-xl font-black tracking-tight text-zinc-950" onClick={() => setMobileMenuOpen(false)}>
-            SpareCart
+            SpareKart
           </Link>
           <div className="hidden items-center gap-6 lg:flex">
             {navItems.map((item) => (
@@ -301,7 +301,7 @@ export default function HomePage() {
           <div className="grid gap-8 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.16),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.95),_rgba(240,249,255,0.9)_55%,_rgba(247,244,255,0.95))] p-8 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:p-14">
             <div className="space-y-6">
               <div className="inline-flex rounded-full border border-emerald-200/80 bg-gradient-to-r from-emerald-500/15 via-white to-sky-500/15 px-3 py-1 text-sm font-semibold text-emerald-700">
-                SpareCart • Mobile marketplace for spare parts
+                SpareKart • Mobile marketplace for spare parts
               </div>
               <h1 className="max-w-2xl text-4xl font-black leading-tight text-zinc-950 sm:text-5xl lg:text-6xl">
                 Your Spare Parts. Your Marketplace. Your Drive.
@@ -363,7 +363,7 @@ export default function HomePage() {
       <section id="about" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="rounded-[28px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
-            <SectionTitle eyebrow="About Us" title="We are making vehicle spare parts easier to find." description="SpareCart brings buyers and sellers together through a simple mobile marketplace designed to make spare-parts discovery faster, easier, and more reliable." />
+            <SectionTitle eyebrow="About Us" title="We are making vehicle spare parts easier to find." description="SpareKart brings buyers and sellers together through a simple mobile marketplace designed to make spare-parts discovery faster, easier, and more reliable." />
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-emerald-50 p-5">
                 <h3 className="text-lg font-black text-zinc-950">Mission</h3>
@@ -389,7 +389,7 @@ export default function HomePage() {
       </section>
 
       <section id="features" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SectionTitle eyebrow="Why Choose SpareCart" title="A premium marketplace experience for every automotive need." description="From part discovery to seller connection and business growth, SpareCart is built to support a modern automotive ecosystem." />
+        <SectionTitle eyebrow="Why Choose SpareKart" title="A premium marketplace experience for every automotive need." description="From part discovery to seller connection and business growth, SpareKart is built to support a modern automotive ecosystem." />
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {features.map((feature) => (
             <div key={feature.title} className="rounded-[24px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg">
@@ -402,7 +402,7 @@ export default function HomePage() {
       </section>
 
       <section id="how-it-works" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SectionTitle eyebrow="How It Works" title="Simple flows for buyers and sellers alike." description="Whether you need a part fast or want to list one you already have, SpareCart keeps the process clear and smooth." />
+        <SectionTitle eyebrow="How It Works" title="Simple flows for buyers and sellers alike." description="Whether you need a part fast or want to list one you already have, SpareKart keeps the process clear and smooth." />
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <div className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
             <h3 className="text-2xl font-black text-zinc-950">For Buyers</h3>
@@ -439,7 +439,7 @@ export default function HomePage() {
         <div className="rounded-[32px] border border-white/70 bg-white/80 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
-              <SectionTitle eyebrow="Mobile App" title="Everything you need, right in your pocket." description="Use SpareCart to find, buy, and sell spare parts from anywhere with a polished mobile-first experience." />
+              <SectionTitle eyebrow="Mobile App" title="Everything you need, right in your pocket." description="Use SpareKart to find, buy, and sell spare parts from anywhere with a polished mobile-first experience." />
               <div className="mt-6 flex flex-wrap gap-3">
                 <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download on Google Play</a>
                 <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl border border-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50">Download on App Store</a>
@@ -456,7 +456,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-semibold text-zinc-500">Home</p>
-                      <p className="font-black">SpareCart</p>
+                      <p className="font-black">SpareKart</p>
                     </div>
                     <div className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">Live</div>
                   </div>
@@ -514,7 +514,7 @@ export default function HomePage() {
       </section>
 
       <section id="reviews" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SectionTitle eyebrow="Customer Reviews" title="What our community says about SpareCart." description="Real feedback from users who value speed, trust, and a better way to find vehicle parts." />
+        <SectionTitle eyebrow="Customer Reviews" title="What our community says about SpareKart." description="Real feedback from users who value speed, trust, and a better way to find vehicle parts." />
         <div className="mt-8 rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl sm:p-8">
           <div className="flex items-center justify-between">
             <div>
@@ -563,7 +563,7 @@ export default function HomePage() {
         <div className="rounded-[32px] border border-white/70 bg-gradient-to-br from-emerald-500/10 via-white to-sky-500/10 p-8 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <div>
-              <SectionTitle eyebrow="Trust & Safety" title="A marketplace experience designed to build confidence." description="SpareCart focuses on clear listings, user profiles, transparent pricing, and simple communication so the marketplace feels trustworthy and useful." />
+              <SectionTitle eyebrow="Trust & Safety" title="A marketplace experience designed to build confidence." description="SpareKart focuses on clear listings, user profiles, transparent pricing, and simple communication so the marketplace feels trustworthy and useful." />
             </div>
             <div className="rounded-[24px] border border-white/70 bg-white/80 p-6 shadow-[0_14px_40px_-24px_rgba(15,23,42,0.25)] backdrop-blur-xl">
               <ul className="space-y-3 text-sm leading-7 text-zinc-600">
@@ -578,7 +578,7 @@ export default function HomePage() {
       </section>
 
       <section id="faq" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SectionTitle eyebrow="FAQ" title="Everything you might want to know about SpareCart." description="A simple set of answers for buyers, sellers, and businesses exploring the platform." />
+        <SectionTitle eyebrow="FAQ" title="Everything you might want to know about SpareKart." description="A simple set of answers for buyers, sellers, and businesses exploring the platform." />
         <div className="mt-8 grid gap-4">
           {faqItems.map((item) => (
             <FaqItem key={item.question} question={item.question} answer={item.answer} />
@@ -592,7 +592,7 @@ export default function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">Download & Contact</p>
             <h2 className="mt-3 text-3xl font-black">Ready to find your next spare part?</h2>
             <p className="mt-3 text-lg leading-8 text-zinc-300">
-              Join the SpareCart community and make buying and selling vehicle spare parts easier and more efficient.
+              Join the SpareKart community and make buying and selling vehicle spare parts easier and more efficient.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">Download the App</a>
@@ -656,7 +656,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="rounded-[28px] border border-zinc-200 bg-gradient-to-br from-emerald-50 to-white p-8 shadow-sm">
-            <h3 className="text-2xl font-black text-zinc-950">Follow SpareCart</h3>
+            <h3 className="text-2xl font-black text-zinc-950">Follow SpareKart</h3>
             <p className="mt-3 text-lg leading-8 text-zinc-600">Stay updated with product launches, community stories, and marketplace tips.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               {socialLinks.map((link) => (
@@ -672,7 +672,7 @@ export default function HomePage() {
       <footer className="border-t border-zinc-200/70 bg-white/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-8">
           <div className="max-w-md">
-            <p className="text-xl font-black text-zinc-950">SpareCart</p>
+            <p className="text-xl font-black text-zinc-950">SpareKart</p>
             <p className="mt-3 text-sm leading-7 text-zinc-600">Your marketplace for vehicle spare parts, designed to be fast, reliable, and easy to use.</p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -695,7 +695,7 @@ export default function HomePage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500">Contact</p>
               <div className="mt-3 flex flex-col gap-2 text-sm text-zinc-600">
-                <a href="mailto:support@sparecart.com" className="hover:text-zinc-950">support@sparecart.com</a>
+                <a href="mailto:support@sparekart.com" className="hover:text-zinc-950">support@sparekart.com</a>
                 <a href="tel:+919876543210" className="hover:text-zinc-950">+91 98765 43210</a>
                 <span>Kerala, India</span>
               </div>
@@ -703,7 +703,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="border-t border-zinc-200 px-4 py-4 text-center text-sm text-zinc-500 sm:px-6 lg:px-8">
-          © 2026 SpareCart. All rights reserved.
+          © 2026 SpareKart. All rights reserved.
         </div>
       </footer>
     </main>

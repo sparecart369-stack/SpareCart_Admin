@@ -30,10 +30,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         <div className="flex items-center justify-between gap-3 px-2 py-3">
           <Link href="/" className="flex items-center gap-3" onClick={onClose}>
             <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-emerald-400 via-sky-500 to-violet-500 text-base font-black text-white shadow-lg shadow-emerald-500/25">
-              SC
+              SK
             </span>
             <span>
-              <span className="block text-sm font-black tracking-wide text-zinc-950 dark:text-white">Spare Cart</span>
+              <span className="block text-sm font-black tracking-wide text-zinc-950 dark:text-white">SpareKart</span>
               <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Admin Dashboard</span>
             </span>
           </Link>
