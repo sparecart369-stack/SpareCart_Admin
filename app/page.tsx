@@ -24,21 +24,66 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const categoryShowcase = [
+  {
+    title: "Engine & Performance",
+    subtitle: "3,420+ listings",
+    image: "/categories/engine-performance.jpg",
+    className: "sm:col-span-2 sm:row-span-2 min-h-[280px] sm:min-h-[420px]",
+  },
+  {
+    title: "Brakes & Safety",
+    subtitle: "Verified sellers",
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&q=80",
+    className: "min-h-[180px]",
+  },
+  {
+    title: "Alloy Wheels",
+    subtitle: "2,300+ parts",
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80",
+    className: "min-h-[180px]",
+  },
+  {
+    title: "LED Lighting",
+    subtitle: "Top rated",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    className: "min-h-[160px]",
+  },
+  {
+    title: "Suspension",
+    subtitle: "Smooth drive",
+    image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+    className: "min-h-[160px]",
+  },
+  {
+    title: "Interior & Comfort",
+    subtitle: "Premium picks",
+    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80",
+    className: "min-h-[160px]",
+  },
+  {
+    title: "Body & Exterior",
+    subtitle: "2,600+ parts",
+    image: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=800&q=80",
+    className: "sm:col-span-2 min-h-[200px]",
+  },
+];
+
 const categories = [
-  { name: "Engine", desc: "Block, pistons, cylinder heads & turbochargers", icon: "⚙️", count: "3,420+ parts", image: "/categories/engine.jpg", tag: "High Demand" },
-  { name: "Transmission", desc: "Gearboxes, clutches, flywheels & drive shafts", icon: "🔄", count: "1,850+ parts", tag: "Essential" },
-  { name: "AC System", desc: "Compressors, condensers, evaporators & cooling fans", icon: "❄️", count: "920+ parts", tag: "Seasonal" },
-  { name: "Body Parts", desc: "Bumpers, doors, hoods, fenders & side mirrors", icon: "🚗", count: "2,600+ parts", tag: "Popular" },
-  { name: "Suspension", desc: "Shock absorbers, struts, control arms & coil springs", icon: "🔩", count: "1,450+ parts", tag: "Smooth Drive" },
-  { name: "Brakes", desc: "Discs, red performance calipers, pads & ABS units", icon: "🛑", count: "2,100+ parts", image: "/categories/brakes.jpg", tag: "Safety First" },
-  { name: "Electrical", desc: "Batteries, alternators, starters & wiring looms", icon: "⚡", count: "1,780+ parts", tag: "Core Tech" },
-  { name: "Accessories", desc: "Floor mats, car covers, seat protectors & utility tools", icon: "🎒", count: "4,100+ parts", tag: "Trending" },
-  { name: "Sensors & Modules", desc: "ECUs, oxygen sensors, MAF meters & ABS modules", icon: "🎛️", count: "1,120+ parts", tag: "Smart Electronics" },
-  { name: "Interior", desc: "Dashboards, leather seats, steering wheels & knobs", icon: "🪑", count: "1,640+ parts", tag: "Comfort" },
-  { name: "Wheels", desc: "Alloy rims, sport tires, wheel hubs & lug nuts", icon: "🛞", count: "2,300+ parts", tag: "Style & Grip" },
-  { name: "Lighting", desc: "LED headlights, tail lamps, fog lights & indicators", icon: "💡", count: "1,950+ parts", image: "/categories/lighting.jpg", tag: "Top Rated" },
-  { name: "Bearing", desc: "Wheel bearings, clutch release bearings & ball bearings", icon: "⚙️", count: "890+ parts", tag: "Precision" },
-  { name: "Fuel System", desc: "Fuel pumps, injectors, fuel filters & tanks", icon: "⛽", count: "1,310+ parts", tag: "Efficiency" },
+  { name: "Engine", desc: "Block, pistons, cylinder heads & turbochargers", icon: "⚙️", count: "3,420+ parts", image: "/categories/engine-performance.jpg", tag: "High Demand" },
+  { name: "Transmission", desc: "Gearboxes, clutches, flywheels & drive shafts", icon: "🔄", count: "1,850+ parts", image: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=800&q=80", tag: "Essential" },
+  { name: "AC System", desc: "Compressors, condensers, evaporators & cooling fans", icon: "❄️", count: "920+ parts", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80", tag: "Seasonal" },
+  { name: "Body Parts", desc: "Bumpers, doors, hoods, fenders & side mirrors", icon: "🚗", count: "2,600+ parts", image: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=800&q=80", tag: "Popular" },
+  { name: "Suspension", desc: "Shock absorbers, struts, control arms & coil springs", icon: "🔩", count: "1,450+ parts", image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80", tag: "Smooth Drive" },
+  { name: "Brakes", desc: "Discs, red performance calipers, pads & ABS units", icon: "🛑", count: "2,100+ parts", image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&q=80", tag: "Safety First" },
+  { name: "Electrical", desc: "Batteries, alternators, starters & wiring looms", icon: "⚡", count: "1,780+ parts", image: "/categories/electrical.jpg", tag: "Core Tech" },
+  { name: "Accessories", desc: "Floor mats, car covers, seat protectors & utility tools", icon: "🎒", count: "4,100+ parts", image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80", tag: "Trending" },
+  { name: "Sensors & Modules", desc: "ECUs, oxygen sensors, MAF meters & ABS modules", icon: "🎛️", count: "1,120+ parts", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80", tag: "Smart Electronics" },
+  { name: "Interior", desc: "Dashboards, leather seats, steering wheels & knobs", icon: "🪑", count: "1,640+ parts", image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80", tag: "Comfort" },
+  { name: "Wheels", desc: "Alloy rims, sport tires, wheel hubs & lug nuts", icon: "🛞", count: "2,300+ parts", image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80", tag: "Style & Grip" },
+  { name: "Lighting", desc: "LED headlights, tail lamps, fog lights & indicators", icon: "💡", count: "1,950+ parts", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80", tag: "Top Rated" },
+  { name: "Bearing", desc: "Wheel bearings, clutch release bearings & ball bearings", icon: "⚙️", count: "890+ parts", image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=800&q=80", tag: "Precision" },
+  { name: "Fuel System", desc: "Fuel pumps, injectors, fuel filters & tanks", icon: "⛽", count: "1,310+ parts", image: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80", tag: "Efficiency" },
 ];
 
 const features = [
@@ -510,88 +555,51 @@ export default function HomePage() {
           description="Browse vehicle categories and get to the right listing faster with a premium, structured experience."
         />
 
-        {/* Vehicle Filter Selector Box (matching mobile app screenshot) */}
-        <div className="mt-8 rounded-[32px] border border-white/80 bg-white/80 p-6 shadow-xl backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/80 sm:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-200/80 pb-5 dark:border-white/10">
+        <div className="relative mt-8 overflow-hidden rounded-[32px] border border-white/80 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-950 p-4 shadow-2xl shadow-emerald-950/20 sm:p-6 dark:border-white/10">
+          <div className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-sky-500/15 blur-3xl" />
+
+          <div className="relative mb-5 flex flex-wrap items-end justify-between gap-4 px-1 sm:px-2">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <h3 className="font-display text-xl font-black text-zinc-950 dark:text-white">Smart Vehicle Filter</h3>
-              </div>
-              <p className="mt-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400">Specify your vehicle details to pinpoint exact fitting parts instantly.</p>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">Visual Gallery</p>
+              <h3 className="font-display mt-1 text-2xl font-black text-white sm:text-3xl">Shop by what you see</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
+                Real parts, real categories — browse highlights from engines to wheels before you dive into listings.
+              </p>
             </div>
-            <span className="rounded-full bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
-              Instant Compatibility Check
-            </span>
+            <a
+              href={mobileAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-bold text-white backdrop-blur transition hover:border-emerald-400/50 hover:bg-emerald-500/20"
+            >
+              Open in app
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </a>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Make / Brand</label>
-              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
-                <option value="">Select Make</option>
-                <option value="toyota">Toyota</option>
-                <option value="honda">Honda</option>
-                <option value="hyundai">Hyundai</option>
-                <option value="maruti">Maruti Suzuki</option>
-                <option value="bmw">BMW</option>
-                <option value="tata">Tata Motors</option>
-                <option value="mahindra">Mahindra</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Model</label>
-              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
-                <option value="">Select Model</option>
-                <option value="camry">Camry / Fortuner</option>
-                <option value="civic">Civic / City</option>
-                <option value="creta">Creta / i20</option>
-                <option value="swift">Swift / Brezza</option>
-                <option value="thar">Thar / XUV700</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Year</label>
-              <select className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white">
-                <option value="">Select Year</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Chassis No.</label>
-              <input
-                type="text"
-                placeholder="e.g. MA3E12..."
-                className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition placeholder:font-normal focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white"
-              />
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Part No.</label>
-              <input
-                type="text"
-                placeholder="e.g. 90919-012..."
-                className="w-full rounded-2xl border border-zinc-200/90 bg-white px-4 py-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition placeholder:font-normal focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-zinc-800 dark:text-white"
-              />
-            </div>
-          </form>
-
-          <div className="mt-5 flex justify-end">
-            <button
-              type="button"
-              className="group flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 hover:shadow-emerald-500/35"
-            >
-              <span>Apply Vehicle Filters</span>
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </button>
+          <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {categoryShowcase.map((item) => (
+              <div
+                key={item.title}
+                className={`group relative overflow-hidden rounded-[24px] border border-white/10 shadow-lg ${item.className}`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={`absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110 ${item.title === "Engine & Performance" ? "object-[center_45%]" : ""}`}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/35 to-transparent transition group-hover:from-emerald-950/85" />
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <span className="inline-block rounded-full bg-emerald-500/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                    {item.subtitle}
+                  </span>
+                  <p className="font-display mt-2 text-base font-black text-white sm:text-lg">{item.title}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -602,29 +610,22 @@ export default function HomePage() {
               key={category.name}
               className="group relative overflow-hidden rounded-[28px] border border-white/80 bg-white/80 p-5 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-500/15 dark:border-white/10 dark:bg-zinc-900/80"
             >
-              {category.image ? (
-                <div className="relative mb-4 h-40 overflow-hidden rounded-2xl bg-zinc-900">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">
-                    {category.tag}
-                  </span>
-                </div>
-              ) : (
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/15 via-sky-500/10 to-indigo-500/15 text-2xl shadow-sm group-hover:scale-110 transition-transform">
-                    {category.icon}
-                  </div>
-                  <span className="rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold text-zinc-600 dark:bg-white/10 dark:text-zinc-300">
-                    {category.tag}
-                  </span>
-                </div>
-              )}
+              <div className="relative mb-4 h-40 overflow-hidden rounded-2xl bg-zinc-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+                <span className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-lg shadow-md backdrop-blur">
+                  {category.icon}
+                </span>
+                <span className="absolute bottom-3 left-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">
+                  {category.tag}
+                </span>
+              </div>
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
