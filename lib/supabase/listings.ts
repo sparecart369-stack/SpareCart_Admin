@@ -1,4 +1,4 @@
-import { supabase } from "./client";
+import { supabase, supabaseAdmin } from "../supabase";
 import type { Listing } from "@/types/listing";
 
 const fallbackListings: Listing[] = [
@@ -25,43 +25,19 @@ const fallbackListings: Listing[] = [
     part_number: "PT-1001",
     is_available: true,
   },
-  {
-    id: "fallback-listing-2",
-    seller_id: "fallback-seller",
-    name: "Front Brake Caliper",
-    category: "Brakes",
-    make: "Maruti Suzuki",
-    model: "Swift",
-    year: 2020,
-    condition: "Used",
-    price: 9200,
-    location: "Mumbai",
-    description: "Refurbished caliper with smooth braking response and quick installation.",
-    fulfillment: "Next day dispatch",
-    pickup_address: "Plot 44, Andheri East",
-    status: "active",
-    is_admin_listing: false,
-    seller_rating: 4.6,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    chassis_number: "CHS-1002",
-    part_number: "PT-1002",
-    is_available: true,
-  },
 ];
 
 export async function getListings(): Promise<Listing[]> {
-  if (!supabase) {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
     console.warn("Supabase is not configured. Returning fallback listings.");
     return fallbackListings;
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("listings")
       .select("*")
-      .eq("status", "active")
-      .eq("is_available", true)
       .order("created_at", {
         ascending: false,
       });
@@ -72,7 +48,7 @@ export async function getListings(): Promise<Listing[]> {
       return fallbackListings;
     }
 
-    return data ?? fallbackListings;
+    return (data && data.length > 0) ? data : fallbackListings;
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.warn("getListings unexpected error. Returning fallback listings:", message);

@@ -1,16 +1,17 @@
-import { supabase } from "./client";
+import { supabase, supabaseAdmin } from "../supabase";
 
 /** Lightweight probe against the table this app actually reads in production. */
 export async function probeSupabaseConnection(): Promise<{
   connected: boolean;
   error?: string;
 }> {
-  if (!supabase) {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
     return { connected: false, error: "Supabase is not configured." };
   }
 
   try {
-    const { error } = await supabase
+    const { error } = await client
       .from("listings")
       .select("id", { count: "exact", head: true });
 

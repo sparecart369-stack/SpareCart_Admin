@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseAdmin } from "@/lib/supabase";
 import { probeSupabaseConnection } from "@/lib/supabase/connection-check";
 import type { SparePart } from "@/types/admin";
 
@@ -25,36 +25,37 @@ export async function testSupabaseConnection() {
  * Fetch spare parts from Supabase
  */
 export async function fetchSpareParts(): Promise<SparePart[]> {
-  if (!supabase) {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
     return [];
   }
 
-  const { data, error } = await supabase
-    .from("spare_parts")
-    .select("*")
-    .order("created_at", { ascending: false });
+  try {
+    const { data, error } = await client
+      .from("listings")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  if (error) throw error;
+    if (error) throw error;
 
-  return (data || []).map((item: any) => ({
-    id: item.id,
-    image: item.image || "",
-    name: item.name || "Unknown",
-    brand: item.brand || "General",
-    model: item.model || "Standard",
-    category: item.category || "General",
-    price: item.price || 0,
-    seller: item.seller || "Unknown",
-    status:
-      item.status === "Out of Stock"
-        ? "Out of Stock"
-        : item.status === "Low Stock"
-        ? "Low Stock"
-        : "In Stock",
-    dateAdded: item.date_added
-      ? new Date(item.date_added).toLocaleDateString()
-      : new Date(item.created_at).toLocaleDateString(),
-  }));
+    return (data || []).map((item: any) => ({
+      id: item.id,
+      image: item.image || "",
+      name: item.name || "Unknown",
+      brand: item.make || item.brand || item.category || "General",
+      model: item.model || "Standard",
+      category: item.category || "General",
+      price: item.price || 0,
+      seller: item.seller || item.seller_id ? `Seller (${item.seller_rating || "4.8"})` : "Unknown",
+      status: item.is_available === false ? "Out of Stock" : item.status === "active" ? "In Stock" : item.status || "In Stock",
+      dateAdded: item.created_at
+        ? new Date(item.created_at).toLocaleDateString()
+        : new Date().toLocaleDateString(),
+    }));
+  } catch (err) {
+    console.error("Error fetching spare parts:", err);
+    return [];
+  }
 }
 
 /**
