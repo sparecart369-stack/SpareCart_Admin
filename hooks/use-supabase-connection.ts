@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { probeSupabaseConnection } from "@/lib/supabase/connection-check";
 
 export function useSupabaseConnection() {
   const [connected, setConnected] = useState<boolean | null>(null);
@@ -9,24 +9,22 @@ export function useSupabaseConnection() {
 
   useEffect(() => {
     const testConnection = async () => {
-      if (!supabase) {
-        setError("Supabase is not configured. Update NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
-        setConnected(false);
-        return;
-      }
-
       try {
-        const { data, error: err } = await supabase.from("spare_parts").select("count()", { count: "exact", head: true });
-        
-        if (err) {
-          console.error("❌ Supabase connection failed:", err.message);
-          setError(err.message);
+        const result = await probeSupabaseConnection();
+
+        if (!result.connected) {
+          const message =
+            result.error ??
+            "Supabase is not configured. Update NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.";
+          console.error("❌ Supabase connection failed:", message);
+          setError(message);
           setConnected(false);
-        } else {
-          console.log("✅ Supabase connection successful!");
-          setConnected(true);
-          setError(null);
+          return;
         }
+
+        console.log("✅ Supabase connection successful!");
+        setConnected(true);
+        setError(null);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : String(err);
         console.error("❌ Supabase connection error:", errorMessage);

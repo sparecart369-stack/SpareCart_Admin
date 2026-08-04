@@ -1,24 +1,19 @@
 import { supabase } from "@/lib/supabase";
+import { probeSupabaseConnection } from "@/lib/supabase/connection-check";
 import type { SparePart } from "@/types/admin";
 
 /**
  * Test Supabase connection
  */
 export async function testSupabaseConnection() {
-  if (!supabase) {
-    return { connected: false, error: "Supabase is not configured." };
-  }
-
   try {
-    const { data, error } = await supabase.from("spare_parts").select("count()").limit(1);
-
-    if (error) {
-      console.error("❌ Supabase connection failed:", error.message);
-      return { connected: false, error: error.message };
+    const result = await probeSupabaseConnection();
+    if (result.connected) {
+      console.log("✅ Supabase connection successful!");
+    } else {
+      console.error("❌ Supabase connection failed:", result.error);
     }
-
-    console.log("✅ Supabase connection successful!");
-    return { connected: true };
+    return result;
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
     console.error("❌ Supabase connection error:", errorMessage);
