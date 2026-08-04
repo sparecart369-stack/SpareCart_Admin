@@ -24,6 +24,9 @@ interface DataTableProps<T extends { id: string }> {
   filterKey?: keyof T;
   addAction?: ReactNode;
   showView?: boolean;
+  onEdit?: (item: T) => void;
+  onDelete?: (item: T) => void;
+  onView?: (item: T) => void;
 }
 
 export function DataTable<T extends { id: string }>({
@@ -35,6 +38,9 @@ export function DataTable<T extends { id: string }>({
   filterKey,
   addAction,
   showView = false,
+  onEdit,
+  onDelete,
+  onView,
 }: DataTableProps<T>) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All");
@@ -48,7 +54,7 @@ export function DataTable<T extends { id: string }>({
       const matchesQuery =
         !normalized ||
         searchKeys.some((key) =>
-          String(item[key])
+          String(item[key] ?? "")
             .toLowerCase()
             .includes(normalized),
         );
@@ -69,6 +75,15 @@ export function DataTable<T extends { id: string }>({
   function updateFilter(value: string) {
     setFilter(value);
     setPage(1);
+  }
+
+  function handleDeleteConfirm() {
+    if (deleteTarget) {
+      if (onDelete) {
+        onDelete(deleteTarget);
+      }
+      setDeleteTarget(null);
+    }
   }
 
   return (
@@ -136,11 +151,21 @@ export function DataTable<T extends { id: string }>({
                   <td className="px-4 py-4">
                     <div className="flex justify-end gap-1">
                       {showView && (
-                        <Button variant="ghost" className="h-9 w-9 rounded-xl p-0" aria-label={`View ${item.id}`}>
+                        <Button
+                          variant="ghost"
+                          className="h-9 w-9 rounded-xl p-0"
+                          aria-label={`View ${item.id}`}
+                          onClick={() => onView && onView(item)}
+                        >
                           <EyeIcon className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button variant="ghost" className="h-9 w-9 rounded-xl p-0" aria-label={`Edit ${item.id}`}>
+                      <Button
+                        variant="ghost"
+                        className="h-9 w-9 rounded-xl p-0"
+                        aria-label={`Edit ${item.id}`}
+                        onClick={() => onEdit && onEdit(item)}
+                      >
                         <EditIcon className="h-4 w-4" />
                       </Button>
                       <Button
@@ -164,9 +189,9 @@ export function DataTable<T extends { id: string }>({
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Delete record?"
-        description={`This will remove ${deleteTarget?.id ?? "this record"} from the current dashboard view. Dummy data will reset on refresh.`}
+        description={`This will permanently remove listing "${deleteTarget?.id}" from Supabase database.`}
         onCancel={() => setDeleteTarget(null)}
-        onConfirm={() => setDeleteTarget(null)}
+        onConfirm={handleDeleteConfirm}
       />
     </section>
   );

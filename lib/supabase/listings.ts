@@ -55,3 +55,86 @@ export async function getListings(): Promise<Listing[]> {
     return fallbackListings;
   }
 }
+
+export async function updateListing(
+  id: string,
+  updates: Partial<Listing>
+): Promise<{ success: boolean; error?: string }> {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
+    return { success: false, error: "Supabase client is not initialized." };
+  }
+
+  try {
+    const { error } = await client
+      .from("listings")
+      .update({
+        ...updates,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id);
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { success: false, error: message };
+  }
+}
+
+export async function deleteListing(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
+    return { success: false, error: "Supabase client is not initialized." };
+  }
+
+  try {
+    const { error } = await client.from("listings").delete().eq("id", id);
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { success: false, error: message };
+  }
+}
+
+export async function createListing(
+  listing: Partial<Listing>
+): Promise<{ success: boolean; data?: Listing; error?: string }> {
+  const client = supabaseAdmin || supabase;
+  if (!client) {
+    return { success: false, error: "Supabase client is not initialized." };
+  }
+
+  try {
+    const { data, error } = await client
+      .from("listings")
+      .insert([
+        {
+          ...listing,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, data };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { success: false, error: message };
+  }
+}

@@ -1,10 +1,13 @@
 import type { Listing } from "@/types/listing";
+import { EditIcon, TrashIcon } from "@/components/ui/icons";
 
 interface Props {
   listing: Listing;
+  onEdit?: (listing: Listing) => void;
+  onDelete?: (listing: Listing) => void;
 }
 
-export function ListingCard({ listing }: Props) {
+export function ListingCard({ listing, onEdit, onDelete }: Props) {
   const formattedPrice =
     typeof listing.price === "number" && listing.price > 0
       ? `₹${listing.price.toLocaleString("en-IN")}`
@@ -78,7 +81,26 @@ export function ListingCard({ listing }: Props) {
 
       <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-[11px] text-zinc-400">
         <span>Added {new Date(listing.created_at).toLocaleDateString()}</span>
-        <span className="font-mono text-zinc-400">ID: {listing.id.slice(0, 8)}</span>
+        <div className="flex items-center gap-1">
+          {onEdit && (
+            <button
+              onClick={() => onEdit(listing)}
+              className="rounded-lg p-1.5 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              title="Edit Product"
+            >
+              <EditIcon className="h-4 w-4" />
+            </button>
+          )}
+          {onDelete && (
+            <button
+              onClick={() => onDelete(listing)}
+              className="rounded-lg p-1.5 text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40"
+              title="Delete Product"
+            >
+              <TrashIcon className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

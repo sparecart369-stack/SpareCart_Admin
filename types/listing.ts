@@ -4,6 +4,7 @@ export interface Listing {
 
   name: string;
   category: string;
+  subcategory?: string;
   make: string;
   model: string;
 
