@@ -25,6 +25,7 @@ export default function CustomersPage() {
   const [modalMode, setModalMode] = useState<"view" | "edit" | "create">("view");
   const [activeCustomer, setActiveCustomer] = useState<CustomerProfile | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     async function loadCustomers() {
@@ -83,9 +84,10 @@ export default function CustomersPage() {
   }
 
   async function handleSave(values: Partial<CustomerProfile>) {
+    setError(null);
     const savingCustomer = values.id ? await updateProfile(values.id, values) : await createProfile(values);
-    if (!savingCustomer) {
-      setError("Unable to save customer. Please try again.");
+    if (!savingCustomer.data) {
+      setError(savingCustomer.error || "Unable to save customer. Please try again.");
       return;
     }
 
@@ -93,13 +95,23 @@ export default function CustomersPage() {
   }
 
   async function handleDelete() {
-    if (!activeCustomer) return;
-    const deleted = await deleteProfile(activeCustomer.id);
-    if (deleted) {
+    if (!activeCustomer || deleting) return;
+    setError(null);
+    setDeleting(true);
+    try {
+      const result = await deleteProfile(activeCustomer.id);
+
+      if (result.data) {
+        setDeleteOpen(false);
+        setActiveCustomer(null);
+        await reloadCustomers();
+        return;
+      }
+
       setDeleteOpen(false);
-      await reloadCustomers();
-    } else {
-      setError("Unable to delete customer. Please try again.");
+      setError(result.error || "Unable to delete customer. Please try again.");
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -204,12 +216,14 @@ export default function CustomersPage() {
           </div>
         </div>
 
-        {loading ? (
-          <LoadingSkeleton />
-        ) : error ? (
+        {error ? (
           <div className="rounded-3xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-950/40 dark:text-rose-200">
             {error}
           </div>
+        ) : null}
+
+        {loading ? (
+          <LoadingSkeleton />
         ) : (
           <CustomerTable
             customers={currentPageCustomers}
@@ -236,7 +250,10 @@ export default function CustomersPage() {
       <DeleteDialog
         open={deleteOpen}
         customerName={activeCustomer?.name ?? "customer"}
-        onCancel={() => setDeleteOpen(false)}
+        confirming={deleting}
+        onCancel={() => {
+          if (!deleting) setDeleteOpen(false);
+        }}
         onConfirm={handleDelete}
       />
     </div>

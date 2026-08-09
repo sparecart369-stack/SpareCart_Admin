@@ -6,8 +6,7 @@ import { DataTable, type Column } from "@/components/tables/data-table";
 import { ListingGrid } from "@/components/ListingGrid";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EditListingModal } from "@/components/edit-listing-modal";
-import { updateListing, deleteListing, createListing } from "@/lib/supabase/listings";
-import { Button } from "@/components/ui/button";
+import { updateListing, deleteListing } from "@/lib/supabase/listings";
 
 interface SparePartsViewProps {
   listings: Listing[];
@@ -23,11 +22,6 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
   function showToast(msg: string) {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
-  }
-
-  function handleOpenCreate() {
-    setEditingListing(null);
-    setIsModalOpen(true);
   }
 
   function handleOpenEdit(item: Listing) {
@@ -46,26 +40,18 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
   }
 
   async function handleSaveListing(formData: Partial<Listing>) {
-    if (editingListing) {
-      // Update existing listing
-      const res = await updateListing(editingListing.id, formData);
-      if (res.success) {
-        setItems((prev) =>
-          prev.map((i) => (i.id === editingListing.id ? ({ ...i, ...formData } as Listing) : i))
-        );
-        showToast(`Updated "${formData.name || editingListing.name}" successfully!`);
-      } else {
-        throw new Error(res.error || "Failed to update listing");
-      }
+    if (!editingListing) {
+      return;
+    }
+
+    const res = await updateListing(editingListing.id, formData);
+    if (res.success) {
+      setItems((prev) =>
+        prev.map((i) => (i.id === editingListing.id ? ({ ...i, ...formData } as Listing) : i))
+      );
+      showToast(`Updated "${formData.name || editingListing.name}" successfully!`);
     } else {
-      // Create new listing
-      const res = await createListing(formData);
-      if (res.success && res.data) {
-        setItems((prev) => [res.data!, ...prev]);
-        showToast(`Created new spare part "${res.data.name}"!`);
-      } else {
-        throw new Error(res.error || "Failed to create listing");
-      }
+      throw new Error(res.error || "Failed to update listing");
     }
   }
 
@@ -210,13 +196,6 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <Button
-            onClick={handleOpenCreate}
-            className="rounded-xl bg-emerald-600 text-white font-bold text-xs px-4 py-2 hover:bg-emerald-700 shadow-md shadow-emerald-500/20"
-          >
-            + Add Spare Part
-          </Button>
-
           <div className="inline-flex items-center rounded-2xl border border-zinc-200 bg-white p-1 shadow-sm dark:border-white/10 dark:bg-zinc-900">
             <button
               onClick={() => setViewMode("table")}
@@ -258,7 +237,6 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
         <ListingGrid listings={items} onEdit={handleOpenEdit} onDelete={handleDelete} />
       )}
 
-      {/* Edit & Create Listing Modal */}
       <EditListingModal
         isOpen={isModalOpen}
         listing={editingListing}

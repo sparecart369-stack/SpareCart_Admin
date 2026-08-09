@@ -1,5 +1,16 @@
-import { supabase } from "@/lib/supabase";
+"use server";
+
+import { createSupabaseClient } from "@/lib/supabase/client";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { CustomerProfile } from "./columns";
+
+function getProfilesClient() {
+  return createSupabaseAdminClient() || createSupabaseClient();
+}
+
+function getAdminClient() {
+  return createSupabaseAdminClient();
+}
 
 function normalizeProfile(item: Record<string, unknown>): CustomerProfile {
   return {
@@ -16,7 +27,8 @@ function normalizeProfile(item: Record<string, unknown>): CustomerProfile {
 }
 
 export async function fetchProfiles(): Promise<CustomerProfile[]> {
-  if (!supabase) {
+  const client = getProfilesClient();
+  if (!client) {
     return [];
   }
 
@@ -27,7 +39,7 @@ export async function fetchProfiles(): Promise<CustomerProfile[]> {
     let data: Array<Record<string, unknown>> | null = null;
     let error = null;
 
-    const primaryResult = await supabase
+    const primaryResult = await client
       .from("profiles")
       .select(primarySelect)
       .order("created_at", { ascending: false });
@@ -36,7 +48,7 @@ export async function fetchProfiles(): Promise<CustomerProfile[]> {
     error = primaryResult.error;
 
     if (error?.code === "42703") {
-      const fallbackResult = await supabase.from("profiles").select(fallbackSelect).order("created_at", { ascending: false });
+      const fallbackResult = await client.from("profiles").select(fallbackSelect).order("created_at", { ascending: false });
       data = fallbackResult.data;
       error = fallbackResult.error;
     }
@@ -59,7 +71,8 @@ export interface ProfileActionResult<T> {
 }
 
 export async function createProfile(values: Partial<CustomerProfile>): Promise<ProfileActionResult<CustomerProfile>> {
-  if (!supabase) {
+  const client = getProfilesClient();
+  if (!client) {
     return { data: null, error: "Supabase client is not configured." };
   }
 
@@ -72,7 +85,7 @@ export async function createProfile(values: Partial<CustomerProfile>): Promise<P
       created_at: new Date().toISOString(),
     };
 
-    const { data, error } = await supabase.from("profiles").insert([payload]).select().single();
+    const { data, error } = await client.from("profiles").insert([payload]).select().single();
 
     if (error) {
       console.error("Supabase createProfile error:", error);
@@ -88,7 +101,8 @@ export async function createProfile(values: Partial<CustomerProfile>): Promise<P
 }
 
 export async function updateProfile(id: string, values: Partial<CustomerProfile>): Promise<ProfileActionResult<CustomerProfile>> {
-  if (!supabase) {
+  const client = getProfilesClient();
+  if (!client) {
     return { data: null, error: "Supabase client is not configured." };
   }
 
@@ -100,7 +114,7 @@ export async function updateProfile(id: string, values: Partial<CustomerProfile>
     if (typeof values.role === "string") payload.role = values.role;
     if (typeof values.avatar_url === "string") payload.avatar_url = values.avatar_url;
 
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("profiles")
       .update(payload)
       .eq("id", id)
@@ -120,18 +134,49 @@ export async function updateProfile(id: string, values: Partial<CustomerProfile>
   }
 }
 
-export async function deleteProfile(id: string): Promise<ProfileActionResult<null>> {
-  if (!supabase) {
-    return { data: null, error: "Supabase client is not configured." };
+export async function deleteProfile(id: string): Promise<ProfileActionResult<boolean>> {
+  const trimmedId = id?.trim();
+  if (!trimmedId) {
+    return { data: null, error: "Invalid customer id." };
+  }
+
+  const admin = getAdminClient();
+  if (!admin) {
+    return {
+      data: null,
+      error: "Admin delete requires SUPABASE_SERVICE_ROLE_KEY in .env.local. Restart the dev server after adding it.",
+    };
   }
 
   try {
-    const { error } = await supabase.from("profiles").delete().eq("id", id);
+    let { data, error } = await admin.from("profiles").delete().eq("id", trimmedId).select("id");
+
+    if (error?.code === "23503") {
+      const { error: listingsError } = await admin.from("listings").delete().eq("seller_id", trimmedId);
+      if (listingsError && listingsError.code !== "42P01") {
+        console.error("Supabase deleteProfile listings cleanup error:", listingsError);
+        return {
+          data: null,
+          error: "Cannot delete this customer because related listings or orders still exist.",
+        };
+      }
+      ({ data, error } = await admin.from("profiles").delete().eq("id", trimmedId).select("id"));
+    }
+
     if (error) {
       console.error("Supabase deleteProfile error:", error);
+      if (error.code === "23503") {
+        return {
+          data: null,
+          error: "Cannot delete this customer because other tables still reference this profile.",
+        };
+      }
       return { data: null, error: error.message };
     }
-    return { data: null };
+    if (!data?.length) {
+      return { data: null, error: "No customer was deleted. The profile may not exist or the id did not match." };
+    }
+    return { data: true };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("Error deleting profile:", err);

@@ -6,11 +6,21 @@ interface ConfirmDialogProps {
   open: boolean;
   title: string;
   description: string;
+  confirmLabel?: string;
+  confirming?: boolean;
   onCancel: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
 }
 
-export function ConfirmDialog({ open, title, description, onCancel, onConfirm }: ConfirmDialogProps) {
+export function ConfirmDialog({
+  open,
+  title,
+  description,
+  confirmLabel = "Delete",
+  confirming = false,
+  onCancel,
+  onConfirm,
+}: ConfirmDialogProps) {
   if (!open) return null;
 
   return (
@@ -19,11 +29,11 @@ export function ConfirmDialog({ open, title, description, onCancel, onConfirm }:
         <h2 className="text-lg font-bold text-zinc-950 dark:text-white">{title}</h2>
         <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{description}</p>
         <div className="mt-6 flex justify-end gap-3">
-          <Button onClick={onCancel} variant="secondary">
+          <Button type="button" onClick={onCancel} variant="secondary" disabled={confirming}>
             Cancel
           </Button>
-          <Button onClick={onConfirm} variant="danger">
-            Delete
+          <Button type="button" onClick={() => void onConfirm()} variant="danger" disabled={confirming}>
+            {confirming ? "Deleting…" : confirmLabel}
           </Button>
         </div>
       </div>
