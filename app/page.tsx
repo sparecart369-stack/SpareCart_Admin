@@ -309,7 +309,11 @@ export default function HomePage() {
         ↑
       </button>
 
-      <header className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/60 bg-white/80 shadow-[0_8px_30px_-15px_rgba(16,185,129,0.15)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-950/80" : "bg-transparent"}`}>
+      <header
+        className={`sticky top-0 z-40 border-b border-white/60 bg-white/85 backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-zinc-950/85 ${
+          scrolled ? "shadow-[0_8px_30px_-15px_rgba(16,185,129,0.15)]" : "shadow-sm shadow-zinc-950/5 dark:shadow-black/20"
+        }`}
+      >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link href="#home" className="group flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-tr from-emerald-500 via-sky-500 to-indigo-500 text-sm font-black text-white shadow-md shadow-emerald-500/25 transition-transform group-hover:scale-105">
@@ -333,8 +337,12 @@ export default function HomePage() {
             <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="hidden rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 hover:shadow-emerald-500/35 sm:inline-flex">
               Download App
             </a>
-            <button type="button" className="rounded-2xl border border-zinc-200 bg-white p-2.5 text-zinc-800 dark:border-white/10 dark:bg-white/10 dark:text-white lg:hidden" onClick={() => setMobileMenuOpen((value) => !value)} aria-label="Toggle menu">
-              <span className="block h-0.5 w-5 bg-current" />
+            <button type="button" className="grid h-10 w-10 place-items-center rounded-2xl border border-zinc-200 bg-white text-zinc-800 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-white lg:hidden" onClick={() => setMobileMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={mobileMenuOpen}>
+              <span className="flex w-5 flex-col gap-1" aria-hidden="true">
+                <span className="block h-0.5 w-full bg-current" />
+                <span className="block h-0.5 w-full bg-current" />
+                <span className="block h-0.5 w-full bg-current" />
+              </span>
             </button>
           </div>
         </nav>
