@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CloseIcon } from "@/components/ui/icons";
+import { CloseIcon, LogOutIcon, ShieldCheckIcon } from "@/components/ui/icons";
 import { navigation } from "@/components/layout/navigation";
 import { cn } from "@/lib/utils";
+import { useSuperAdminAuth } from "@/lib/auth-context";
 
 interface SidebarProps {
   open: boolean;
@@ -13,6 +14,7 @@ interface SidebarProps {
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const { user, logout } = useSuperAdminAuth();
 
   return (
     <>
@@ -76,14 +78,42 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           })}
         </nav>
 
-        <div className="mt-auto rounded-3xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-sky-500/5 to-purple-500/10 p-4 backdrop-blur-md dark:border-white/10">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <p className="font-display text-xs font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300">Live Control Room</p>
+        <div className="mt-auto space-y-3">
+          <div className="rounded-3xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-sky-500/5 to-purple-500/10 p-4 backdrop-blur-md dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <p className="font-display text-xs font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300">Live Control Room</p>
+            </div>
+            <p className="mt-2 text-xs font-semibold leading-5 text-zinc-600 dark:text-zinc-300">
+              Real-time operations dashboard for SpareKart listings, sellers, and order performance.
+            </p>
           </div>
-          <p className="mt-2 text-xs font-semibold leading-5 text-zinc-600 dark:text-zinc-300">
-            Real-time operations dashboard for SpareKart listings, sellers, and order performance.
-          </p>
+
+          <div className="flex items-center justify-between gap-2 rounded-2xl border border-zinc-200/80 bg-zinc-100/80 p-3 text-xs font-bold text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-indigo-600 text-xs font-black text-white shadow-md">
+                SA
+              </span>
+              <div className="min-w-0">
+                <p className="truncate font-bold text-zinc-950 dark:text-white">{user?.username || "sparecartadmin"}</p>
+                <p className="flex items-center gap-1 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                  <ShieldCheckIcon className="h-3 w-3" />
+                  Super Admin
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                onClose();
+                logout();
+              }}
+              title="Log out from Super Admin"
+              className="rounded-xl border border-zinc-200 bg-white p-2 text-zinc-500 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:hover:bg-rose-500/20 dark:hover:text-rose-300 transition-all"
+              aria-label="Logout Super Admin"
+            >
+              <LogOutIcon className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </aside>
     </>

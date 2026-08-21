@@ -331,8 +331,11 @@ export default function HomePage() {
             ))}
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/admin" className="relative inline-flex items-center justify-center overflow-hidden rounded-2xl border border-emerald-400/40 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-sky-500/10 px-4.5 py-2 text-sm font-bold text-emerald-700 shadow-sm transition-all hover:border-emerald-500 hover:bg-emerald-500/20 dark:text-emerald-300">
-              Admin Platform
+            <Link href="/login" className="hidden rounded-2xl border border-zinc-200/90 bg-white/90 px-4 py-2 text-sm font-bold text-zinc-800 shadow-sm transition hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-white sm:inline-flex">
+              Sign In
+            </Link>
+            <Link href="/admin/login" className="relative inline-flex items-center justify-center overflow-hidden rounded-2xl border border-emerald-400/40 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-sky-500/10 px-4.5 py-2 text-sm font-bold text-emerald-700 shadow-sm transition-all hover:border-emerald-500 hover:bg-emerald-500/20 dark:text-emerald-300">
+              Admin Gateway
             </Link>
             <a href={mobileAppUrl} target="_blank" rel="noopener noreferrer" className="hidden rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 hover:shadow-emerald-500/35 sm:inline-flex">
               Download App

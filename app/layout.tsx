@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 };
 
 import { SupabaseInitializer } from "@/components/supabase-initializer";
+import { SuperAdminAuthProvider } from "@/lib/auth-context";
 
 export default function RootLayout({
   children,
@@ -37,8 +38,10 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="day" data-scroll-behavior="smooth" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full bg-background text-foreground font-sans">
-        <SupabaseInitializer />
-        <AppShell>{children}</AppShell>
+        <SuperAdminAuthProvider>
+          <SupabaseInitializer />
+          <AppShell>{children}</AppShell>
+        </SuperAdminAuthProvider>
       </body>
     </html>
   );

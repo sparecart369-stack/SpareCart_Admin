@@ -1,13 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BellIcon, MenuIcon, SearchIcon } from "@/components/ui/icons";
+import { BellIcon, LogOutIcon, MenuIcon, SearchIcon, ShieldCheckIcon } from "@/components/ui/icons";
 import { navigation } from "@/components/layout/navigation";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { useSuperAdminAuth } from "@/lib/auth-context";
 
 export function TopNavbar({ onMenuClick }: { onMenuClick: () => void }) {
   const pathname = usePathname();
   const page = navigation.find((item) => item.href === pathname)?.label ?? "Dashboard";
+  const { user, logout } = useSuperAdminAuth();
 
   return (
     <header className="sticky top-0 z-20 border-b border-white/40 bg-white/70 px-4 py-3.5 backdrop-blur-2xl transition-all duration-200 dark:border-white/10 dark:bg-zinc-950/70 sm:px-6">
@@ -50,17 +53,30 @@ export function TopNavbar({ onMenuClick }: { onMenuClick: () => void }) {
           <span className="absolute right-2.5 top-2.5 h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-zinc-950 animate-pulse" />
         </button>
 
-        <div className="hidden items-center gap-3 rounded-2xl border border-white/80 bg-white/80 px-3.5 py-1.5 shadow-sm backdrop-blur transition hover:border-emerald-500/30 dark:border-white/10 dark:bg-white/10 sm:flex">
+        <div className="hidden items-center gap-3 rounded-2xl border border-white/80 bg-white/80 px-3.5 py-1.5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/10 sm:flex">
           <div className="relative">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-tr from-emerald-500 via-sky-500 to-indigo-500 text-xs font-black text-white shadow-md shadow-emerald-500/20">
-              AD
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-indigo-600 text-xs font-black text-white shadow-md shadow-emerald-500/20">
+              SA
             </span>
             <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-zinc-950" />
           </div>
           <span className="leading-tight">
-            <span className="font-display block text-sm font-bold text-zinc-950 dark:text-white">Admin</span>
-            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Founder Control</span>
+            <span className="font-display flex items-center gap-1 text-xs font-bold text-zinc-950 dark:text-white">
+              <ShieldCheckIcon className="h-3.5 w-3.5 text-emerald-500" />
+              {user?.username || "sparecartadmin"}
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              Super Admin
+            </span>
           </span>
+          <button
+            onClick={logout}
+            title="Log out from Super Admin"
+            className="ml-1 rounded-xl p-1.5 text-zinc-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors"
+            aria-label="Logout Super Admin"
+          >
+            <LogOutIcon className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </header>
