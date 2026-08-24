@@ -1,10 +1,11 @@
+import Link from "next/link";
 import { activities, categoryShare, customers, orders, revenueSeries, sellers, spareParts } from "@/data/admin-data";
 import { BarChart } from "@/components/charts/bar-chart";
 import { LineChart } from "@/components/charts/line-chart";
 import { GlassCard } from "@/components/cards/glass-card";
 import { StatCard } from "@/components/cards/stat-card";
 import { PageHeader } from "@/components/layout/page-header";
-import { BoxIcon, ChartIcon, OrdersIcon, ProfitIcon, StoreIcon, UsersIcon } from "@/components/ui/icons";
+import { ArrowLeftIcon, BoxIcon, ChartIcon, GlobeIcon, OrdersIcon, ProfitIcon, StoreIcon, UsersIcon } from "@/components/ui/icons";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/icons";
 
 export const navigation = [
-  { label: "Dashboard", href: "/", icon: DashboardIcon },
+  { label: "Dashboard", href: "/admin", icon: DashboardIcon },
   { label: "Spare Parts", href: "/spare-parts", icon: BoxIcon },
   { label: "Customers", href: "/customers", icon: UsersIcon },
   { label: "Sellers", href: "/sellers", icon: StoreIcon },

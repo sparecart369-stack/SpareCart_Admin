@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CloseIcon, LogOutIcon, ShieldCheckIcon } from "@/components/ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, CloseIcon, GlobeIcon, LogOutIcon, ShieldCheckIcon } from "@/components/ui/icons";
 import { navigation } from "@/components/layout/navigation";
 import { cn } from "@/lib/utils";
 import { useSuperAdminAuth } from "@/lib/auth-context";
@@ -30,7 +30,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         )}
       >
         <div className="flex items-center justify-between gap-3 px-2 py-3">
-          <Link href="/" className="group flex items-center gap-3.5" onClick={onClose}>
+          <Link href="/admin" className="group flex items-center gap-3.5" onClick={onClose}>
             <div className="relative">
               <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-tr from-emerald-500 via-sky-500 to-indigo-500 text-base font-black text-white shadow-lg shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-105">
                 SK
@@ -51,7 +51,27 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </button>
         </div>
 
-        <nav className="mt-6 space-y-1.5">
+        <div className="mt-3 px-1">
+          <Link
+            href="/"
+            onClick={onClose}
+            className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 p-3 text-xs font-bold text-emerald-800 transition-all duration-300 hover:border-emerald-500/60 hover:shadow-md hover:shadow-emerald-500/15 dark:border-emerald-400/25 dark:bg-emerald-500/15 dark:text-emerald-300"
+            title="Go to main website storefront"
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-500 text-white shadow-md shadow-emerald-500/30 transition-transform group-hover:scale-105">
+                <GlobeIcon className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="font-extrabold leading-none text-zinc-950 dark:text-white">Storefront Live</p>
+                <p className="mt-1 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">View Public Website</p>
+              </div>
+            </div>
+            <ArrowRightIcon className="h-4 w-4 text-emerald-600 transition-transform group-hover:translate-x-1 dark:text-emerald-400" />
+          </Link>
+        </div>
+
+        <nav className="mt-4 space-y-1.5">
           {navigation.map((item) => {
             const active = pathname === item.href;
             const Icon = item.icon;

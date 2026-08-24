@@ -38,7 +38,7 @@ export function AuthCard({ initialMode = "login", initialRole = "admin" }: AuthC
   const [email, setEmail] = useState(
     role === "admin" ? "admin@sparekart.com" : role === "seller" ? "seller@sparekart.com" : "buyer@sparekart.com"
   );
-  const [phone, setPhone] = useState("+91 98765 43210");
+  const [phone, setPhone] = useState("+91 85909 25382");
   const [password, setPassword] = useState("••••••••••••");
   const [confirmPassword, setConfirmPassword] = useState("••••••••••••");
   const [rememberMe, setRememberMe] = useState(true);
@@ -251,7 +251,7 @@ export function AuthCard({ initialMode = "login", initialRole = "admin" }: AuthC
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 85909 25382"
                   className="w-full rounded-2xl border border-zinc-200/90 bg-white/90 py-3 pl-10 pr-4 text-sm font-semibold text-zinc-900 shadow-sm transition placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white"
                 />
               </div>
