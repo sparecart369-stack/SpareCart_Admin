@@ -112,6 +112,13 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
       ),
     },
     {
+      key: "quantity",
+      header: "Quantity",
+      render: (item) => (
+        <span className="font-semibold text-zinc-900 dark:text-white">{item.quantity}</span>
+      ),
+    },
+    {
       key: "status",
       header: "Status & Stock",
       render: (item) => (

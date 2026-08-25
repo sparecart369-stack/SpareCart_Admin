@@ -39,6 +39,9 @@ export function CustomerRow({ customer, onView, onEdit, onDelete }: CustomerRowP
         </span>
       </td>
       <td className="px-4 py-4">
+        <span className="text-sm font-semibold text-zinc-900 dark:text-white">{customer.total_orders}</span>
+      </td>
+      <td className="px-4 py-4">
         <div className="min-w-[120px]">
           <div className="mb-2 text-sm font-semibold text-zinc-900 dark:text-white">{customer.positive_feedback}</div>
           <div className="h-2 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">

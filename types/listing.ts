@@ -14,6 +14,8 @@ export interface Listing {
 
   price: number;
 
+  quantity: number;
+
   location: string;
 
   description: string;

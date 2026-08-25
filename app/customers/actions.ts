@@ -20,6 +20,7 @@ function normalizeProfile(item: Record<string, unknown>): CustomerProfile {
     role: String(item.role ?? "Buyer"),
     avatar_url: String(item.avatar_url ?? ""),
     positive_feedback: item.positive_feedback == null ? 0 : Number(item.positive_feedback),
+    total_orders: item.total_orders == null ? 0 : Number(item.total_orders),
     created_at: item.created_at ? new Date(String(item.created_at)).toString() : new Date().toString(),
     seller_avg_rating: item.seller_avg_rating == null ? null : Number(item.seller_avg_rating),
     seller_rating_count: item.seller_rating_count == null ? null : Number(item.seller_rating_count),
@@ -33,7 +34,7 @@ export async function fetchProfiles(): Promise<CustomerProfile[]> {
   }
 
   try {
-    const primarySelect = "id, name, phone, role, avatar_url, positive_feedback, created_at, seller_avg_rating, seller_rating_count";
+    const primarySelect = "id, name, phone, role, avatar_url, positive_feedback, total_orders, created_at, seller_avg_rating, seller_rating_count";
     const fallbackSelect = "id, name, phone, role, avatar_url, created_at";
 
     let data: Array<Record<string, unknown>> | null = null;
@@ -58,7 +59,23 @@ export async function fetchProfiles(): Promise<CustomerProfile[]> {
       return [];
     }
 
-    return (data || []).map(normalizeProfile);
+    const profiles = (data || []).map(normalizeProfile);
+    const ordersResult = await client.from("orders").select("customer");
+    const orderCounts = new Map<string, number>();
+
+    if (!ordersResult.error) {
+      for (const order of ordersResult.data || []) {
+        const customerName = String(order.customer ?? "").trim().toLowerCase();
+        if (customerName) {
+          orderCounts.set(customerName, (orderCounts.get(customerName) ?? 0) + 1);
+        }
+      }
+    }
+
+    return profiles.map((profile) => ({
+      ...profile,
+      total_orders: orderCounts.get(profile.name.trim().toLowerCase()) ?? profile.total_orders,
+    }));
   } catch (err) {
     console.error("Error fetching profiles:", err);
     return [];

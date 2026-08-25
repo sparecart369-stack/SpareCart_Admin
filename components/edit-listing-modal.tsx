@@ -31,6 +31,7 @@ export function EditListingModal({
         year: listing.year || new Date().getFullYear(),
         condition: listing.condition || "used",
         price: listing.price || 0,
+        quantity: listing.quantity ?? 0,
         location: listing.location || "",
         description: listing.description || "",
         fulfillment: listing.fulfillment || "doorstep_delivery",
@@ -49,6 +50,7 @@ export function EditListingModal({
         year: new Date().getFullYear(),
         condition: "used",
         price: 0,
+        quantity: 0,
         location: "",
         description: "",
         fulfillment: "doorstep_delivery",
@@ -125,6 +127,21 @@ export function EditListingModal({
                 required
                 value={formData.price ?? 0}
                 onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                className="mt-1 w-full rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300">
+                Quantity *
+              </label>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                required
+                value={formData.quantity ?? 0}
+                onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) })}
                 className="mt-1 w-full rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
               />
             </div>

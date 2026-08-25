@@ -7,6 +7,7 @@ export interface CustomerProfile {
   role: CustomerRole;
   avatar_url: string;
   positive_feedback: number;
+  total_orders: number;
   created_at: string;
   seller_avg_rating: number | null;
   seller_rating_count: number | null;

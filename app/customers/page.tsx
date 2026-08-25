@@ -228,8 +228,6 @@ export default function CustomersPage() {
           <CustomerTable
             customers={currentPageCustomers}
             loading={loading}
-            page={page}
-            pageSize={pageSize}
             onView={openView}
             onEdit={openEdit}
             onDelete={openDelete}

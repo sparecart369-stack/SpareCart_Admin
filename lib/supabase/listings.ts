@@ -12,6 +12,7 @@ const fallbackListings: Listing[] = [
     year: 2018,
     condition: "Used",
     price: 18500,
+    quantity: 1,
     location: "Bengaluru",
     description: "High-quality turbocharger assembly tested for reliable performance.",
     fulfillment: "Same day dispatch",
@@ -48,7 +49,12 @@ export async function getListings(): Promise<Listing[]> {
       return fallbackListings;
     }
 
-    return (data && data.length > 0) ? data : fallbackListings;
+    return (data && data.length > 0)
+      ? data.map((listing) => ({
+          ...listing,
+          quantity: Number(listing.quantity ?? listing.stock_quantity ?? listing.stock ?? (listing.is_available === false ? 0 : 1)),
+        }))
+      : fallbackListings;
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.warn("getListings unexpected error. Returning fallback listings:", message);
