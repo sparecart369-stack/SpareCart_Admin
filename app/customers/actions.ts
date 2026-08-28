@@ -13,13 +13,23 @@ function getAdminClient() {
 }
 
 function normalizeProfile(item: Record<string, unknown>): CustomerProfile {
+  const rawRole = String(item.role ?? "Buyer").trim();
+  const role = rawRole.toLowerCase() === "seller" ? "Seller" : "Buyer";
+
+  const positiveFeedback =
+    item.positive_feedback != null
+      ? Number(item.positive_feedback)
+      : item.positive_feedback_pct != null
+        ? Number(item.positive_feedback_pct)
+        : 0;
+
   return {
     id: String(item.id ?? ""),
     name: String(item.name ?? ""),
     phone: String(item.phone ?? ""),
-    role: String(item.role ?? "Buyer"),
+    role,
     avatar_url: String(item.avatar_url ?? ""),
-    positive_feedback: item.positive_feedback == null ? 0 : Number(item.positive_feedback),
+    positive_feedback: positiveFeedback,
     total_orders: item.total_orders == null ? 0 : Number(item.total_orders),
     created_at: item.created_at ? new Date(String(item.created_at)).toString() : new Date().toString(),
     seller_avg_rating: item.seller_avg_rating == null ? null : Number(item.seller_avg_rating),

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { activities, categoryShare, customers, orders, revenueSeries, sellers, spareParts } from "@/data/admin-data";
+import { activities, categoryShare, orders, revenueSeries } from "@/data/admin-data";
 import { BarChart } from "@/components/charts/bar-chart";
 import { LineChart } from "@/components/charts/line-chart";
 import { GlassCard } from "@/components/cards/glass-card";
@@ -8,8 +8,10 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ArrowLeftIcon, BoxIcon, ChartIcon, GlobeIcon, OrdersIcon, ProfitIcon, StoreIcon, UsersIcon } from "@/components/ui/icons";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatCurrency, formatNumber } from "@/lib/utils";
+import { fetchDashboardCounts } from "@/lib/supabase-queries";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const counts = await fetchDashboardCounts();
   const revenue = orders.reduce((total, order) => total + order.amount, 0);
   const profit = Math.round(revenue * 0.18);
   const paidOrders = orders.filter((order) => order.paymentStatus === "Paid").length;
@@ -24,10 +26,10 @@ export default function AdminDashboardPage() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Revenue" value={formatCurrency(revenue)} change="+18.4% from last month" icon={<ChartIcon className="h-6 w-6" />} tone="emerald" />
         <StatCard label="Profit" value={formatCurrency(profit)} change="+12.8% margin lift" icon={<ProfitIcon className="h-6 w-6" />} tone="violet" />
-        <StatCard label="Orders" value={formatNumber(orders.length)} change={`${paidOrders} paid orders`} icon={<OrdersIcon className="h-6 w-6" />} tone="sky" />
-        <StatCard label="Customers" value={formatNumber(customers.length)} change="+9 new repeat buyers" icon={<UsersIcon className="h-6 w-6" />} tone="amber" />
-        <StatCard label="Sellers" value={formatNumber(sellers.length)} change="4 awaiting verification" icon={<StoreIcon className="h-6 w-6" />} tone="rose" />
-        <StatCard label="Products" value={formatNumber(spareParts.length)} change="86% currently in stock" icon={<BoxIcon className="h-6 w-6" />} tone="zinc" />
+        <StatCard label="Orders" value={formatNumber(counts.ordersCount)} change={`${paidOrders} paid orders`} icon={<OrdersIcon className="h-6 w-6" />} tone="sky" />
+        <StatCard label="Customers" value={formatNumber(counts.customersCount)} change={`${counts.buyersCount} buyers registered`} icon={<UsersIcon className="h-6 w-6" />} tone="amber" />
+        <StatCard label="Sellers" value={formatNumber(counts.sellersCount)} change={`${counts.sellersCount} active sellers`} icon={<StoreIcon className="h-6 w-6" />} tone="rose" />
+        <StatCard label="Products" value={formatNumber(counts.productsCount)} change={`${counts.inStockPct}% currently in stock`} icon={<BoxIcon className="h-6 w-6" />} tone="zinc" />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">

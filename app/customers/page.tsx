@@ -46,7 +46,7 @@ export default function CustomersPage() {
         customer.name.toLowerCase().includes(normalizedSearch) ||
         customer.phone.toLowerCase().includes(normalizedSearch);
 
-      const matchesRole = selectedRole === "All" || customer.role === selectedRole;
+      const matchesRole = selectedRole === "All" || customer.role.toLowerCase() === selectedRole.toLowerCase();
 
       return matchesText && matchesRole;
     });
@@ -58,8 +58,8 @@ export default function CustomersPage() {
   const pageCount = useMemo(() => Math.max(1, Math.ceil(filteredCustomers.length / pageSize)), [filteredCustomers.length, pageSize]);
 
   const stats = useMemo(() => {
-    const buyerCount = customers.filter((customer) => customer.role === "Buyer").length;
-    const sellerCount = customers.filter((customer) => customer.role === "Seller").length;
+    const buyerCount = customers.filter((customer) => customer.role.toLowerCase() === "buyer").length;
+    const sellerCount = customers.filter((customer) => customer.role.toLowerCase() === "seller").length;
     const ratings = customers.map((customer) => customer.seller_avg_rating ?? 0).filter((value) => value > 0);
     const avgRating = ratings.length ? ratings.reduce((sum, value) => sum + value, 0) / ratings.length : 0;
 

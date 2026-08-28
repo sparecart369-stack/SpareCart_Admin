@@ -185,6 +185,9 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
   const categories = Array.from(new Set(items.map((l) => l.category).filter(Boolean)));
   const filterOptions = categories.map((cat) => ({ label: cat, value: cat }));
 
+  const inStockCount = items.filter((i) => i.is_available !== false && i.status !== "archived").length;
+  const outOfStockCount = items.filter((i) => i.is_available === false || i.status === "archived").length;
+
   return (
     <div className="space-y-6">
       {/* Toast Notification */}
@@ -193,6 +196,26 @@ export function SparePartsView({ listings: initialListings }: SparePartsViewProp
           ✅ {toastMessage}
         </div>
       )}
+
+      {/* Stats Summary Cards */}
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100 dark:border-white/10 dark:bg-zinc-950 dark:shadow-none">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">Total Spare Parts</p>
+          <p className="mt-4 text-4xl font-black text-zinc-950 dark:text-white">{items.length}</p>
+        </div>
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100 dark:border-white/10 dark:bg-zinc-950 dark:shadow-none">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-600 dark:text-emerald-400">In Stock</p>
+          <p className="mt-4 text-4xl font-black text-zinc-950 dark:text-white">{inStockCount}</p>
+        </div>
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100 dark:border-white/10 dark:bg-zinc-950 dark:shadow-none">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600 dark:text-rose-400">Out of Stock</p>
+          <p className="mt-4 text-4xl font-black text-zinc-950 dark:text-white">{outOfStockCount}</p>
+        </div>
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100 dark:border-white/10 dark:bg-zinc-950 dark:shadow-none">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-600 dark:text-sky-400">Categories</p>
+          <p className="mt-4 text-4xl font-black text-zinc-950 dark:text-white">{categories.length}</p>
+        </div>
+      </div>
 
       {/* Header Bar */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
