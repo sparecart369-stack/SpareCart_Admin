@@ -140,7 +140,7 @@ const faqItems = [
 ];
 
 const contactCards = [
-  { title: "Email", value: "sparecart369@gmail.com", detail: "For support, partnerships, and general inquiries." },
+  { title: "Email", value: "salahkoyilandy@gmail.com", detail: "For support, partnerships, and general inquiries." },
   { title: "Phone", value: "+91 85909 25382", detail: "Monday to Saturday, 9:00 AM to 6:00 PM." },
   { title: "Location", value: "Kerala, India", detail: "Serving customers and sellers across regional markets." },
 ];
@@ -855,7 +855,7 @@ export default function HomePage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500">Contact</p>
               <div className="mt-3 flex flex-col gap-2 text-sm text-zinc-600">
-                <a href="mailto:sparecart369@gmail.com" className="hover:text-zinc-950">sparecart369@gmail.com</a>
+                <a href="mailto:salahkoyilandy@gmail.com" className="hover:text-zinc-950">salahkoyilandy@gmail.com</a>
                 <a href="tel:+918590925382" className="hover:text-zinc-950">+91 85909 25382</a>
                 <span>Kerala, India</span>
               </div>

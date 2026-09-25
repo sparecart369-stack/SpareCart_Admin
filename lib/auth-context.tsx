@@ -51,10 +51,10 @@ export function SuperAdminAuthProvider({ children }: { children: ReactNode }) {
     const cleanUsername = usernameInput.trim().toLowerCase();
     const cleanPassword = passwordInput.trim();
 
-    // Accept sparecartadmin or sparecart369@gmail.com or sparecartadmin@sparekart.com
+    // Accept sparecartadmin or salahkoyilandy@gmail.com or sparecartadmin@sparekart.com
     const isUsernameMatch =
       cleanUsername === SUPERADMIN_USERNAME ||
-      cleanUsername === "sparecart369@gmail.com" ||
+      cleanUsername === "salahkoyilandy@gmail.com" ||
       cleanUsername === `${SUPERADMIN_USERNAME}@sparekart.com` ||
       cleanUsername.startsWith(SUPERADMIN_USERNAME);
 

@@ -36,7 +36,7 @@ export function AuthCard({ initialMode = "login", initialRole = "admin" }: AuthC
   // Form State
   const [fullName, setFullName] = useState(role === "admin" ? "SpareKart Admin" : "");
   const [email, setEmail] = useState(
-    role === "admin" ? "admin@sparekart.com" : role === "seller" ? "seller@sparekart.com" : "buyer@sparekart.com"
+    role === "admin" ? "salahkoyilandy@gmail.com" : role === "seller" ? "seller@sparekart.com" : "buyer@sparekart.com"
   );
   const [phone, setPhone] = useState("+91 85909 25382");
   const [password, setPassword] = useState("••••••••••••");
@@ -51,7 +51,7 @@ export function AuthCard({ initialMode = "login", initialRole = "admin" }: AuthC
   const handleRoleChange = (newRole: UserRole) => {
     setRole(newRole);
     if (newRole === "admin") {
-      setEmail("admin@sparekart.com");
+      setEmail("salahkoyilandy@gmail.com");
       setFullName("SpareKart Admin Owner");
     } else if (newRole === "seller") {
       setEmail("seller@autoparts.com");
@@ -82,7 +82,7 @@ export function AuthCard({ initialMode = "login", initialRole = "admin" }: AuthC
     setIsSubmitting(true);
     setMode("login");
     setRole("admin");
-    setEmail("admin@sparekart.com");
+    setEmail("salahkoyilandy@gmail.com");
     setPassword("admin123456");
 
     setTimeout(() => {
