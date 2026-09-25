@@ -16,7 +16,6 @@ export function useSupabaseConnection() {
           const message =
             result.error ??
             "Supabase is not configured. Update NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.";
-          console.error("❌ Supabase connection failed:", message);
           setError(message);
           setConnected(false);
           return;
@@ -27,7 +26,6 @@ export function useSupabaseConnection() {
         setError(null);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : String(err);
-        console.error("❌ Supabase connection error:", errorMessage);
         setError(errorMessage);
         setConnected(false);
       }

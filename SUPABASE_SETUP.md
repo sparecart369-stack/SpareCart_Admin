@@ -4,7 +4,7 @@
 
 Your SpareKart Admin Dashboard is now configured to connect to Supabase with the following details:
 
-- **Project URL**: https://nHQc9fan53apAtZ5LZOb.supabase.co
+- **Project URL**: https://hdydlfaabjtdkgmiavcq.supabase.co
 - **Anon Key**: Connected ✓
 - **Service Role Key**: Connected ✓
 

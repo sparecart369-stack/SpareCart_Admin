@@ -1,65 +1,39 @@
 import { supabase, supabaseAdmin } from "../supabase";
 import type { Listing } from "@/types/listing";
 
-const fallbackListings: Listing[] = [
-  {
-    id: "fallback-listing-1",
-    seller_id: "fallback-seller",
-    name: "Turbocharger Assembly",
-    category: "Engine",
-    make: "Hyundai",
-    model: "i20",
-    year: 2018,
-    condition: "Used",
-    price: 18500,
-    quantity: 1,
-    location: "Bengaluru",
-    description: "High-quality turbocharger assembly tested for reliable performance.",
-    fulfillment: "Same day dispatch",
-    pickup_address: "No. 12, Electronic City",
-    status: "active",
-    is_admin_listing: false,
-    seller_rating: 4.8,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    chassis_number: "CHS-1001",
-    part_number: "PT-1001",
-    is_available: true,
-  },
-];
-
 export async function getListings(): Promise<Listing[]> {
   const client = supabaseAdmin || supabase;
   if (!client) {
-    console.warn("Supabase is not configured. Returning fallback listings.");
-    return fallbackListings;
+    throw new Error("Supabase is not configured. Check the project URL and API key.");
   }
 
-  try {
+  const listings: Listing[] = [];
+  const pageSize = 1000;
+  let offset = 0;
+
+  // Continue until an empty page, including when the API caps batches below pageSize.
+  while (true) {
     const { data, error } = await client
       .from("listings")
       .select("*")
-      .order("created_at", {
-        ascending: false,
-      });
+      .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
+      .range(offset, offset + pageSize - 1)
+      .abortSignal(AbortSignal.timeout(15000));
 
     if (error) {
-      const message = error.message || JSON.stringify(error);
-      console.warn("Supabase getListings error. Returning fallback listings:", message);
-      return fallbackListings;
+      throw new Error(`Unable to load spare parts: ${error.message}`);
     }
+    if (!data?.length) break;
 
-    return (data && data.length > 0)
-      ? data.map((listing) => ({
-          ...listing,
-          quantity: Number(listing.quantity ?? listing.stock_quantity ?? listing.stock ?? (listing.is_available === false ? 0 : 1)),
-        }))
-      : fallbackListings;
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.warn("getListings unexpected error. Returning fallback listings:", message);
-    return fallbackListings;
+    listings.push(...data.map((listing) => ({
+      ...listing,
+      quantity: Number(listing.quantity ?? listing.stock_quantity ?? listing.stock ?? (listing.is_available === false ? 0 : 1)),
+    } as Listing)));
+    offset += data.length;
   }
+
+  return listings;
 }
 
 export async function updateListing(

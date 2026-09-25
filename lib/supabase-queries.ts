@@ -6,19 +6,7 @@ import type { SparePart } from "@/types/admin";
  * Test Supabase connection
  */
 export async function testSupabaseConnection() {
-  try {
-    const result = await probeSupabaseConnection();
-    if (result.connected) {
-      console.log("✅ Supabase connection successful!");
-    } else {
-      console.error("❌ Supabase connection failed:", result.error);
-    }
-    return result;
-  } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : String(err);
-    console.error("❌ Supabase connection error:", errorMessage);
-    return { connected: false, error: errorMessage };
-  }
+  return probeSupabaseConnection();
 }
 
 /**

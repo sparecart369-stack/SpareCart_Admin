@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { testSupabaseConnection } from "@/lib/supabase-queries";
+import { probeSupabaseConnection } from "@/lib/supabase/connection-check";
 
 export function SupabaseInitializer() {
   useEffect(() => {
-    testSupabaseConnection().then((result) => {
+    probeSupabaseConnection().then((result) => {
       if (result.connected) {
         console.log("✅ [Supabase] Connected successfully to:", process.env.NEXT_PUBLIC_SUPABASE_URL);
       } else {
-        console.error("❌ [Supabase] Connection status:", result.error || "Failed to reach Supabase");
+        console.warn("❌ [Supabase] Connection status:", result.error || "Failed to reach Supabase");
       }
     });
   }, []);
